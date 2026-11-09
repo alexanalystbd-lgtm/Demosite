@@ -1,0 +1,6 @@
+{
+  "name": "ডিজিটাল স্টাডি প্ল্যাটফর্ম - ই-কমার্স",
+  "description": "স্কুল ও কলেজ শিক্ষার্থীদের জন্য ডিজিটাল স্টাডি প্রোডাক্টস, পিডিএফ নোটস, প্ল্যানার ও মডেল টেস্ট ই-কমার্স প্ল্যাটফর্ম।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
