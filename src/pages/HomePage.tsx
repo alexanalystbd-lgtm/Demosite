@@ -29,15 +29,18 @@ import { AnnouncementTicker } from '../components/AnnouncementTicker';
 import { ProductCard } from '../components/ProductCard';
 import { siteConfig } from '../config';
 import { useShop } from '../context/ShopContext';
+import { useLanguage } from '../context/LanguageContext';
 import { classesList, DigitalProduct } from '../data/products';
+import { specialCoursesList } from '../data/specialCourses';
 import { faqsList, testimonialsList, trustBadges, chooseUsPoints } from '../data/siteContent';
 import { toBengaliNumber } from '../utils/shopLogic';
 
 export const HomePage: React.FC = () => {
   const { products, showToast } = useShop();
+  const { lang, t, toLocalizedNumber } = useLanguage();
 
   // Active filter tab for Popular Products
-  const [activeTab, setActiveTab] = useState<'for-you' | 'school' | 'college' | 'planner' | 'notes'>('for-you');
+  const [activeTab, setActiveTab] = useState<'for-you' | 'primary' | 'school' | 'college' | 'planner' | 'notes'>('for-you');
 
   // FAQ Accordion active id
   const [openFaqId, setOpenFaqId] = useState<string | null>('faq-1');
@@ -87,13 +90,13 @@ export const HomePage: React.FC = () => {
         <section aria-label="শ্রেণি নির্বাচন">
           <div className="text-center max-w-xl mx-auto mb-5 sm:mb-7">
             <span className="text-slate-600 font-bold text-xs uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-              সহজে শুরু করুন
+              {lang === 'en' ? 'Get Started' : 'সহজে শুরু করুন'}
             </span>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 mt-2">
-              তোমার শ্রেণি নির্বাচন করো
+              {t('selectClassTitle')}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              ১ম শ্রেণি থেকে দ্বাদশ শ্রেণির হ্যান্ডনোটস, ওয়ার্কবুক ও মডেল টেস্ট এক ক্লিকে
+              {t('selectClassSub')}
             </p>
           </div>
 
@@ -116,10 +119,22 @@ export const HomePage: React.FC = () => {
                     <GraduationCap size={18} />
                   </div>
                   <span className="text-xs font-bold text-slate-900 group-hover:text-[#e2136e] transition-colors line-clamp-1">
-                    {item.name}
+                    {lang === 'en'
+                      ? item.slug.startsWith('class-')
+                        ? `Class ${item.slug.replace('class-', '')}`
+                        : item.slug === 'hsc-1st-year'
+                        ? 'HSC 1st Yr'
+                        : 'HSC 2nd Yr'
+                      : item.name}
                   </span>
                   <span className="text-[10px] text-slate-500 line-clamp-1 mt-0.5 leading-tight">
-                    {item.desc}
+                    {lang === 'en'
+                      ? item.slug.startsWith('class-') && Number(item.slug.replace('class-', '')) <= 5
+                        ? 'Primary'
+                        : item.slug.startsWith('class-')
+                        ? 'High School'
+                        : 'College'
+                      : item.desc}
                   </span>
                 </Link>
               );
@@ -133,33 +148,33 @@ export const HomePage: React.FC = () => {
           <div className="bg-white rounded-[12px] p-5 sm:p-7 border border-slate-200 border-t-4 border-t-[#e2136e] shadow-xs flex flex-col justify-between relative overflow-hidden group">
             <div className="relative z-10 max-w-md">
               <span className="bg-pink-50 text-[#e2136e] text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block mb-2 border border-pink-100">
-                ক্লাস ১ – ১০ (প্রাথমিক ও মাধ্যমিক)
+                {t('schoolSectionBadge')}
               </span>
               <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-tight mb-2">
-                স্কুল সেকশন — ১ম থেকে ১০ম শ্রেণির গণিত, বিজ্ঞান, বাংলা ও অল-ইন-ওয়ান প্ল্যানার
+                {t('schoolSectionTitle')}
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mb-5 leading-relaxed">
-                প্রাথমিক স্তর (১ম-৫ম) ও মাধ্যমিক স্তরে (৬ষ্ঠ-১০ম) সেরা ফলাফলের জন্য চিত্রভিত্তিক রঙিন হ্যান্ডনোটস, বৃত্তি প্রস্তুতি ও বোর্ড সাজেশন।
+                {t('schoolSectionDesc')}
               </p>
               <div className="flex flex-wrap items-center gap-2.5">
                 <Link
                   to="/school"
                   className="bg-[#e2136e] hover:bg-[#c2105f] text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2 rounded-[8px] transition-all flex items-center gap-1.5 shadow-xs"
                 >
-                  <span>স্কুল প্রোডাক্টস দেখুন</span>
+                  <span>{t('viewSchoolProducts')}</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link
                   to="/school/class-5"
                   className="bg-slate-50 hover:bg-pink-50 text-slate-800 hover:text-[#e2136e] border border-slate-200 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-[8px] transition-all"
                 >
-                  <span>৫ম শ্রেণি বৃত্তি স্পেশাল</span>
+                  <span>{t('specialClass5')}</span>
                 </Link>
                 <Link
                   to="/school/class-10"
                   className="bg-slate-50 hover:bg-pink-50 text-slate-800 hover:text-[#e2136e] border border-slate-200 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-[8px] transition-all"
                 >
-                  <span>এসএসসি স্পেশাল</span>
+                  <span>{t('specialSSC')}</span>
                 </Link>
               </div>
             </div>
@@ -174,27 +189,27 @@ export const HomePage: React.FC = () => {
           <div className="bg-white rounded-[12px] p-6 sm:p-8 border border-slate-200 border-t-4 border-t-[#f9902e] shadow-xs flex flex-col justify-between relative overflow-hidden group">
             <div className="relative z-10 max-w-md">
               <span className="bg-[#fef4ea] text-[#f9902e] text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
-                HSC ১ম ও ২য় বর্ষ (বিজ্ঞান বিভাগ)
+                {t('collegeSectionBadge')}
               </span>
               <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight mb-2">
-                কলেজ সেকশন — HSC পদার্থ, রসায়ন, ICT ও এডমিশন হ্যাকস
+                {t('collegeSectionTitle')}
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
-                বোর্ড পরীক্ষায় টপ রেজাল্ট ও এডমিশন বুস্টিংয়ের জন্য ক্যালকুলেটর ট্রিকস, জৈব রসায়ন রোডম্যাপ ও মডেল টেস্ট ব্যাংক।
+                {t('collegeSectionDesc')}
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   to="/college"
                   className="bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-[8px] transition-all flex items-center gap-1.5 shadow-xs"
                 >
-                  <span>কলেজ প্রোডাক্টস দেখুন</span>
+                  <span>{t('viewCollegeProducts')}</span>
                   <ArrowRight size={15} />
                 </Link>
                 <Link
                   to="/college/hsc-2nd-year"
                   className="bg-slate-50 hover:bg-orange-50 text-slate-800 hover:text-[#f9902e] border border-slate-200 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-[8px] transition-all"
                 >
-                  <span>HSC ২য় বর্ষ স্পেশাল</span>
+                  <span>{t('specialHSC2nd')}</span>
                 </Link>
               </div>
             </div>
@@ -284,10 +299,82 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
             <span className="text-xs font-bold text-[#f9902e] flex items-center gap-1">
-              <span>সার্কুলার দেখুন</span>
+              <span>{t('seeCircular')}</span>
               <ArrowRight size={13} />
             </span>
           </Link>
+        </section>
+
+        {/* 4.8. বিশেষ প্রস্তুতি কোর্সসমূহ Featured Grid (All 4 Courses) */}
+        <section aria-label="বিশেষ প্রস্তুতি কোর্সসমূহ" className="bg-gradient-to-br from-pink-50/70 via-white to-pink-50/40 rounded-[16px] p-6 sm:p-8 border border-pink-200/80 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <Award size={18} className="text-[#e2136e]" />
+                <span className="text-[#e2136e] font-bold text-xs uppercase tracking-wider">
+                  {lang === 'en' ? 'Targeted Scholarship & Board Batches' : 'মেধা বৃত্তি ও বোর্ড চ্যালেঞ্জ'}
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 mt-1">
+                {t('navSpecialCourses')}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+                {lang === 'en'
+                  ? 'Comprehensive preparation programs with live mentorship, model tests and digital study resources'
+                  : 'বৃত্তি পরীক্ষা ও বোর্ড পরীক্ষায় শতভাগ A+ নিশ্চিত করার বিশেষায়িত একাডেমি'}
+              </p>
+            </div>
+            <Link
+              to="/special-courses"
+              className="text-xs font-bold text-[#e2136e] hover:underline flex items-center gap-1 self-start sm:self-auto"
+            >
+              <span>{t('viewAllCourses')}</span>
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {specialCoursesList.map(course => (
+              <div
+                key={course.id}
+                className="bg-white rounded-[12px] p-4 sm:p-5 border border-slate-200 hover:border-[#e2136e] hover:shadow-md transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-bold text-[#e2136e] bg-pink-50 px-2 py-0.5 rounded-full border border-pink-100">
+                      {lang === 'en' ? course.badgeEn : course.badgeBn}
+                    </span>
+                    <span className="text-xs font-black text-[#e2136e]">
+                      {lang === 'en' ? `BDT ${course.price}` : `৳ ${toLocalizedNumber(course.price)}`}
+                    </span>
+                  </div>
+
+                  <h3 className="font-bold text-sm text-slate-900 group-hover:text-[#e2136e] transition-colors mb-1.5 leading-snug">
+                    {lang === 'en' ? course.titleEn : course.titleBn}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3">
+                    {lang === 'en' ? course.subtitleEn : course.subtitleBn}
+                  </p>
+
+                  <div className="flex items-center gap-2 text-[10px] text-slate-600 bg-slate-50 py-1.5 px-2 rounded-md mb-3">
+                    <span className="font-bold text-slate-900">{toLocalizedNumber(course.totalLectures)} {lang === 'en' ? 'Classes' : 'ক্লাস'}</span>
+                    <span>•</span>
+                    <span className="font-bold text-slate-900">{toLocalizedNumber(course.totalMockTests)} {lang === 'en' ? 'Tests' : 'টেস্ট'}</span>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <Link
+                    to={`/special-courses/${course.slug}`}
+                    className="text-xs font-bold text-slate-700 hover:text-[#e2136e] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                  >
+                    <span>{lang === 'en' ? 'Enroll / Details' : 'ভর্তি ও বিস্তারিত'}</span>
+                    <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 5. Trust Strip: ইনস্ট্যান্ট ডাউনলোড, নিরাপদ পেমেন্ট, ফ্রি স্যাম্পল, সাপোর্ট */}
@@ -435,11 +522,11 @@ export const HomePage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Flame size={18} className="text-[#e2136e]" />
                 <span className="text-[#e2136e] font-bold text-xs uppercase tracking-wider">
-                  শিক্ষার্থীদের প্রথম পছন্দ
+                  {t('studentsFirstChoice')}
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0a0a0a] mt-1">
-                জনপ্রিয় স্টাডি মেটেরিয়ালস
+                {t('popularProductsTitle')}
               </h2>
             </div>
 
@@ -454,7 +541,7 @@ export const HomePage: React.FC = () => {
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                আপনার জন্য
+                {t('tabForYou')}
               </button>
               <button
                 type="button"
@@ -465,7 +552,7 @@ export const HomePage: React.FC = () => {
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                প্রাথমিক (১–৫)
+                {t('tabPrimary')}
               </button>
               <button
                 type="button"
@@ -476,7 +563,7 @@ export const HomePage: React.FC = () => {
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                মাধ্যমিক (৬–১০)
+                {t('tabSchool')}
               </button>
               <button
                 type="button"
@@ -487,7 +574,7 @@ export const HomePage: React.FC = () => {
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                কলেজ (HSC)
+                {t('tabCollege')}
               </button>
               <button
                 type="button"
@@ -498,7 +585,7 @@ export const HomePage: React.FC = () => {
                     : 'text-[#626262] hover:text-[#0a0a0a] hover:bg-gray-100'
                 }`}
               >
-                প্ল্যানার
+                {t('tabPlanner')}
               </button>
               <button
                 type="button"
@@ -509,7 +596,7 @@ export const HomePage: React.FC = () => {
                     : 'text-[#626262] hover:text-[#0a0a0a] hover:bg-gray-100'
                 }`}
               >
-                নোটস
+                {t('tabNotes')}
               </button>
             </div>
           </div>

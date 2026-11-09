@@ -9,11 +9,15 @@ import {
   ShieldCheck,
   Zap,
   Lock,
-  ExternalLink
+  ExternalLink,
+  Award
 } from 'lucide-react';
 import { siteConfig } from '../config';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Footer: React.FC = () => {
+  const { lang, t } = useLanguage();
+
   return (
     <footer className="bg-[#e2136e] text-white pt-12 pb-24 xl:pb-12 mt-16 border-t-4 border-[#AA0E53]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -31,25 +35,25 @@ export const Footer: React.FC = () => {
             </Link>
 
             <p className="text-xs text-pink-100 leading-relaxed">
-              {siteConfig.tagline}। ৬ষ্ঠ থেকে দ্বাদশ শ্রেণির শিক্ষার্থীদের জন্য পরীক্ষায় সেরা ফলাফল নিশ্চিত করার বিশ্বস্ত ডিজিটাল স্টাডি রিসোর্স প্ল্যাটফর্ম।
+              {t('footerAbout')}
             </p>
 
             <div className="flex flex-col gap-2 text-xs text-pink-100 mt-2">
               <div className="flex items-center gap-2">
                 <Phone size={14} className="text-yellow-300 shrink-0" />
-                <span>হটলাইন: {siteConfig.contact.phone}</span>
+                <span>{lang === 'en' ? 'Hotline:' : 'হটলাইন:'} {siteConfig.contact.phone}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-yellow-300 shrink-0" />
-                <span>ইমেইল: {siteConfig.contact.email}</span>
+                <span>{lang === 'en' ? 'Email:' : 'ইমেইল:'} {siteConfig.contact.email}</span>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin size={14} className="text-yellow-300 shrink-0 mt-0.5" />
-                <span>ঠিকানা: {siteConfig.contact.address}</span>
+                <span>{lang === 'en' ? 'Address:' : 'ঠিকানা:'} {siteConfig.contact.address}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock size={14} className="text-yellow-300 shrink-0" />
-                <span>সাপোর্ট সময়: {siteConfig.contact.hours}</span>
+                <span>{lang === 'en' ? 'Support Hours:' : 'সাপোর্ট সময়:'} {siteConfig.contact.hours}</span>
               </div>
             </div>
           </div>
@@ -57,32 +61,32 @@ export const Footer: React.FC = () => {
           {/* Column 2: Policies */}
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-sm text-yellow-300 uppercase tracking-wider border-b border-white/20 pb-2">
-              পলিসি ও নীতিমালা
+              {t('footerPolicies')}
             </h4>
             <ul className="flex flex-col gap-2 text-xs text-pink-100">
               <li>
                 <Link to="/refund-policy" className="hover:text-white hover:underline transition-colors">
-                  রিফান্ড পলিসি (Refund Policy)
+                  {lang === 'en' ? 'Refund Policy' : 'রিফান্ড পলিসি (Refund Policy)'}
                 </Link>
               </li>
               <li>
                 <Link to="/privacy-policy" className="hover:text-white hover:underline transition-colors">
-                  প্রাইভেসি পলিসি (Privacy Policy)
+                  {lang === 'en' ? 'Privacy Policy' : 'প্রাইভেসি পলিসি (Privacy Policy)'}
                 </Link>
               </li>
               <li>
                 <Link to="/terms-and-conditions" className="hover:text-white hover:underline transition-colors">
-                  টার্মস ও কন্ডিশন (Terms & Conditions)
+                  {lang === 'en' ? 'Terms & Conditions' : 'টার্মস ও কন্ডিশন (Terms & Conditions)'}
                 </Link>
               </li>
               <li>
                 <Link to="/digital-delivery-policy" className="hover:text-white hover:underline transition-colors">
-                  ডিজিটাল ডেলিভারি পলিসি (Delivery Policy)
+                  {lang === 'en' ? 'Digital Delivery Policy' : 'ডিজিটাল ডেলিভারি পলিসি (Delivery Policy)'}
                 </Link>
               </li>
               <li>
                 <Link to="/cancellation-policy" className="hover:text-white hover:underline transition-colors">
-                  ক্যান্সেলেশন পলিসি (Cancellation Policy)
+                  {lang === 'en' ? 'Cancellation Policy' : 'ক্যান্সেলেশন পলিসি (Cancellation Policy)'}
                 </Link>
               </li>
             </ul>
@@ -91,48 +95,49 @@ export const Footer: React.FC = () => {
           {/* Column 3: Support & Quick Links */}
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-sm text-yellow-300 uppercase tracking-wider border-b border-white/20 pb-2">
-              গ্রাহক সহায়তা ও নির্দেশিকা
+              {t('footerSupport')}
             </h4>
             <ul className="flex flex-col gap-2 text-xs text-pink-100">
               <li>
-                <Link to="/contact" className="hover:text-white hover:underline transition-colors">
-                  যোগাযোগ ও কাস্টমার কেয়ার
+                <Link to="/special-courses" className="hover:text-white hover:underline transition-colors text-yellow-300 font-bold flex items-center gap-1">
+                  <Award size={13} />
+                  <span>{t('navSpecialCourses')}</span>
                 </Link>
               </li>
               <li>
-                <Link to="/teachers-corner" className="hover:text-white hover:underline transition-colors text-yellow-200 font-semibold">
-                  Teacher's Corner (টিচার্স কর্নার)
+                <Link to="/teachers-corner" className="hover:text-white hover:underline transition-colors">
+                  Teacher's Corner
                 </Link>
               </li>
               <li>
-                <Link to="/career-and-exam" className="hover:text-white hover:underline transition-colors text-yellow-200 font-semibold">
-                  Career & Exam (ক্যারিয়ার ও পরীক্ষা)
+                <Link to="/career-and-exam" className="hover:text-white hover:underline transition-colors">
+                  Career & Exam
                 </Link>
               </li>
               <li>
-                <Link to="/job-circular" className="hover:text-white hover:underline transition-colors text-yellow-200 font-semibold">
-                  Job Circular (জব সার্কুলার)
+                <Link to="/job-circular" className="hover:text-white hover:underline transition-colors">
+                  Job Circular
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-white hover:underline transition-colors">
-                  আমাদের সম্পর্কে (About Us)
+                  {t('navAboutUs')}
                 </Link>
               </li>
               <li>
                 <Link to="/faq" className="hover:text-white hover:underline transition-colors">
-                  সচরাচর জিজ্ঞাসিত প্রশ্ন (FAQ)
+                  {lang === 'en' ? 'FAQ' : 'সচরাচর জিজ্ঞাসিত প্রশ্ন (FAQ)'}
                 </Link>
               </li>
               <li>
                 <Link to="/free-sample" className="hover:text-white hover:underline transition-colors">
-                  ফ্রি স্যাম্পল ডাউনলোড করুন
+                  {t('freeSampleDownload')}
                 </Link>
               </li>
               <li>
                 <Link to="/admin" className="hover:text-white hover:underline transition-colors flex items-center gap-1 text-pink-200">
                   <Lock size={11} />
-                  <span>এডমিন ড্যাশবোর্ড (পাসওয়ার্ড সুরক্ষিত)</span>
+                  <span>{lang === 'en' ? 'Admin Panel' : 'এডমিন ড্যাশবোর্ড (পাসওয়ার্ড সুরক্ষিত)'}</span>
                 </Link>
               </li>
             </ul>
@@ -194,12 +199,12 @@ export const Footer: React.FC = () => {
         {/* Bottom Row: Copyright & Payment Badges */}
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-pink-100">
           <div>
-            © {new Date().getFullYear()} {siteConfig.siteName}। সর্বস্বত্ব সংরক্ষিত। সমস্ত ডিজিটাল কনটেন্ট স্বত্বাধিকারী দ্বারা সংরক্ষিত।
+            © {new Date().getFullYear()} {siteConfig.siteName}. {t('footerCopyright')}
           </div>
 
           {/* Payment Badges: bKash, Nagad, Rocket, Visa, Mastercard */}
           <div className="flex items-center flex-wrap gap-2">
-            <span className="text-[11px] text-pink-200 mr-1">নিরাপদ পেমেন্ট পার্টনার:</span>
+            <span className="text-[11px] text-pink-200 mr-1">{t('paymentPartners')}</span>
             
             {/* bKash */}
             <div className="bg-[#e2136e] border border-white/40 px-2 py-1 rounded-[6px] font-bold text-[11px] text-white flex items-center gap-1 shadow-xs">

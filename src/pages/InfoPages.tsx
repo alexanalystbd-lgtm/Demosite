@@ -512,6 +512,11 @@ export const FreeSamplePage: React.FC = () => {
                 onChange={e => setClassChoice(e.target.value)}
                 className="w-full bg-[#f5f5f5] text-xs p-3 rounded-[8px] border border-gray-200 focus:outline-none focus:border-[#e2136e]"
               >
+                <option value="class-1">ক্লাস ১</option>
+                <option value="class-2">ক্লাস ২</option>
+                <option value="class-3">ক্লাস ৩</option>
+                <option value="class-4">ক্লাস ৪</option>
+                <option value="class-5">ক্লাস ৫ / প্রাথমিক বৃত্তি</option>
                 <option value="class-6">ক্লাস ৬</option>
                 <option value="class-7">ক্লাস ৭</option>
                 <option value="class-8">ক্লাস ৮</option>

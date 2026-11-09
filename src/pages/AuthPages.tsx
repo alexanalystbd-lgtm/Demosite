@@ -177,6 +177,11 @@ export const RegisterPage: React.FC = () => {
               onChange={e => setClassLevel(e.target.value)}
               className="w-full bg-[#f5f5f5] text-xs p-2.5 rounded-[8px] border border-[#e5e5e5] focus:outline-none focus:border-[#e2136e]"
             >
+              <option value="class-1">ক্লাস ১</option>
+              <option value="class-2">ক্লাস ২</option>
+              <option value="class-3">ক্লাস ৩</option>
+              <option value="class-4">ক্লাস ৪</option>
+              <option value="class-5">ক্লাস ৫ / বৃত্তি</option>
               <option value="class-6">ক্লাস ৬</option>
               <option value="class-7">ক্লাস ৭</option>
               <option value="class-8">ক্লাস ৮</option>

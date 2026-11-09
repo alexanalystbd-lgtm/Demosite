@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Sparkles, CheckCircle2 } from 'lucide-react';
 import { siteConfig } from '../config';
+import { useLanguage } from '../context/LanguageContext';
 
 export const HeroBanner: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const { lang, t } = useLanguage();
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -102,22 +104,22 @@ export const HeroBanner: React.FC = () => {
         {/* Subtle pill badge */}
         <div className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold text-pink-100 mb-2 border border-white/15 shadow-xs">
           <Sparkles size={12} className="text-yellow-300 shrink-0" />
-          <span>১ম শ্রেণি থেকে HSC পর্যন্ত আপডেটেড স্টাডি রিসোর্স</span>
+          <span>{t('heroPill')}</span>
         </div>
 
         {/* Two-line clean Heading */}
         <h1 className="flex flex-col items-center justify-center font-montserrat uppercase tracking-tight text-white mb-1.5">
           <span className="font-semibold text-xs sm:text-base md:text-lg leading-snug text-pink-100">
-            {siteConfig.heroTitleLine1}
+            {t('heroTitle1')}
           </span>
           <span className="font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight text-white tracking-tight drop-shadow-xs">
-            {siteConfig.heroTitleLine2}
+            {t('heroTitle2')}
           </span>
         </h1>
 
-        {/* Bengali Subtitle */}
+        {/* Subtitle */}
         <p className="text-xs sm:text-sm text-pink-100/90 font-medium max-w-lg mx-auto mb-3.5 leading-relaxed font-bengali">
-          {siteConfig.heroSubtitle}
+          {t('heroSubtitle')}
         </p>
 
         {/* Minimalist, Clean White Pill Search Bar */}
@@ -131,7 +133,7 @@ export const HeroBanner: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search products... (গণিত, বিজ্ঞান, প্ল্যানার, মডেল টেস্ট)"
+              placeholder={t('searchPlaceholder')}
               className="w-full text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 bg-transparent focus:outline-none font-medium truncate"
               aria-label="Search products"
             />
@@ -141,7 +143,7 @@ export const HeroBanner: React.FC = () => {
             type="submit"
             className="shrink-0 bg-[#e2136e] hover:bg-[#c2105f] active:scale-95 text-white font-bold text-xs sm:text-sm px-4 sm:px-6 py-1.5 sm:py-2 rounded-full transition-all shadow-xs cursor-pointer flex items-center gap-1"
           >
-            <span>Search</span>
+            <span>{t('searchButton')}</span>
           </button>
         </form>
 
@@ -149,15 +151,15 @@ export const HeroBanner: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-5 mt-3 text-[10px] sm:text-xs text-pink-100 font-medium">
           <div className="flex items-center gap-1">
             <CheckCircle2 size={12} className="text-yellow-300 shrink-0" />
-            <span>ইনস্ট্যান্ট ডাউনলোড</span>
+            <span>{t('instantDownload')}</span>
           </div>
           <div className="flex items-center gap-1">
             <CheckCircle2 size={12} className="text-yellow-300 shrink-0" />
-            <span>প্রিন্ট ফ্রেন্ডলি PDF</span>
+            <span>{t('printFriendly')}</span>
           </div>
           <div className="flex items-center gap-1">
             <CheckCircle2 size={12} className="text-yellow-300 shrink-0" />
-            <span>আজীবন ফাইল এক্সেস</span>
+            <span>{t('lifetimeAccess')}</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { ShopProvider } from './context/ShopContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -17,6 +18,7 @@ import { OrderSuccessPage } from './pages/OrderSuccessPage';
 import { AccountPage } from './pages/AccountPage';
 import { WishlistPage } from './pages/WishlistPage';
 import { LoginPage, RegisterPage, ForgotPasswordPage } from './pages/AuthPages';
+import { SpecialCoursesPage } from './pages/SpecialCoursesPage';
 import {
   AboutPage,
   ContactPage,
@@ -52,23 +54,28 @@ function ScrollToTop() {
 export default function App() {
   return (
     <HelmetProvider>
-      <ShopProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Helmet>
-            <title>{siteConfig.siteName} — স্কুল ও কলেজ ডিজিটাল স্টাডি প্রোডাক্টস</title>
-            <meta name="description" content={siteConfig.tagline} />
-          </Helmet>
+      <LanguageProvider>
+        <ShopProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Helmet>
+              <title>{siteConfig.siteName} — স্কুল ও কলেজ ডিজিটাল স্টাডি প্রোডাক্টস</title>
+              <meta name="description" content={siteConfig.tagline} />
+            </Helmet>
 
-          <div className="min-h-screen flex flex-col bg-[#f8fafc] text-[#0a0a0a] antialiased">
-            <Header />
+            <div className="min-h-screen flex flex-col bg-[#f8fafc] text-[#0a0a0a] antialiased">
+              <Header />
 
-            <div className="flex-1">
-              <Routes>
-                {/* Home */}
-                <Route path="/" element={<HomePage />} />
+              <div className="flex-1">
+                <Routes>
+                  {/* Home */}
+                  <Route path="/" element={<HomePage />} />
 
-                {/* School Routes */}
+                  {/* Special Preparation Courses */}
+                  <Route path="/special-courses" element={<SpecialCoursesPage />} />
+                  <Route path="/special-courses/:courseSlug" element={<SpecialCoursesPage />} />
+
+                  {/* School Routes */}
                 <Route
                   path="/school"
                   element={
@@ -200,6 +207,7 @@ export default function App() {
           </div>
         </BrowserRouter>
       </ShopProvider>
-    </HelmetProvider>
-  );
+    </LanguageProvider>
+  </HelmetProvider>
+);
 }
