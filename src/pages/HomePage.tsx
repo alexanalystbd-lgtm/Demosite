@@ -32,7 +32,12 @@ import { useShop } from '../context/ShopContext';
 import { useLanguage } from '../context/LanguageContext';
 import { classesList, DigitalProduct } from '../data/products';
 import { specialCoursesList } from '../data/specialCourses';
-import { faqsList, testimonialsList, trustBadges, chooseUsPoints } from '../data/siteContent';
+import {
+  chooseUsList,
+  promoBundles,
+  bilingualFaqs,
+  bilingualTestimonials
+} from '../data/translationsData';
 import { toBengaliNumber } from '../utils/shopLogic';
 
 export const HomePage: React.FC = () => {
@@ -234,18 +239,20 @@ export const HomePage: React.FC = () => {
                   <GraduationCap size={20} />
                 </div>
                 <span className="text-[10px] font-bold text-[#0084a2] bg-[#ddf1f6] px-2.5 py-0.5 rounded-full">
-                  শিক্ষক রিসোর্স
+                  {lang === 'en' ? 'Teacher Resources' : 'শিক্ষক রিসোর্স'}
                 </span>
               </div>
               <h3 className="font-bold text-base text-slate-900 group-hover:text-[#0084a2] transition-colors mb-1.5">
-                Teacher's Corner (টিচার্স কর্নার)
+                {t('navTeachersCorner')}
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                নতুন কারিকুলামের পাঠ পরিকল্পনা (Lesson Plans), সৃজনশীল প্রশ্ন ব্যাংক ও ধারাবাহিক মূল্যায়ন শিট।
+                {lang === 'en'
+                  ? 'New curriculum lesson plans, creative question banks and continuous assessment sheets.'
+                  : 'নতুন কারিকুলামের পাঠ পরিকল্পনা (Lesson Plans), সৃজনশীল প্রশ্ন ব্যাংক ও ধারাবাহিক মূল্যায়ন শিট।'}
               </p>
             </div>
             <span className="text-xs font-bold text-[#0084a2] flex items-center gap-1">
-              <span>রিসোর্স দেখুন</span>
+              <span>{lang === 'en' ? 'Explore Resources' : 'রিসোর্স দেখুন'}</span>
               <ArrowRight size={13} />
             </span>
           </Link>
@@ -261,18 +268,20 @@ export const HomePage: React.FC = () => {
                   <Target size={20} />
                 </div>
                 <span className="text-[10px] font-bold text-[#e2136e] bg-[#ffdeee] px-2.5 py-0.5 rounded-full">
-                  বিসিএস ও ব্যাংক
+                  {lang === 'en' ? 'BCS & Bank Jobs' : 'বিসিএস ও ব্যাংক'}
                 </span>
               </div>
               <h3 className="font-bold text-base text-slate-900 group-hover:text-[#e2136e] transition-colors mb-1.5">
-                Career & Exam (ক্যারিয়ার ও পরীক্ষা)
+                {t('navCareerExam')}
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                বিসিএস প্রিলি শর্টকাট, ব্যাংক জবস ম্যাথ, ঢাবি-বুয়েট ভর্তি হ্যাকস ও প্রাইমারি শিক্ষক ডাইজেস্ট।
+                {lang === 'en'
+                  ? 'BCS shortcuts, bank math solutions, university admission hacks and primary digest.'
+                  : 'বিসিএস প্রিলি শর্টকাট, ব্যাংক জবস ম্যাথ, ঢাবি-বুয়েট ভর্তি হ্যাকস ও প্রাইমারি শিক্ষক ডাইজেস্ট।'}
               </p>
             </div>
             <span className="text-xs font-bold text-[#e2136e] flex items-center gap-1">
-              <span>প্রস্তুতি গাইড দেখুন</span>
+              <span>{lang === 'en' ? 'View Exam Guides' : 'প্রস্তুতি গাইড দেখুন'}</span>
               <ArrowRight size={13} />
             </span>
           </Link>
@@ -288,14 +297,16 @@ export const HomePage: React.FC = () => {
                   <Briefcase size={20} />
                 </div>
                 <span className="text-[10px] font-bold text-slate-800 bg-[#fef4ea] px-2.5 py-0.5 rounded-full">
-                  হালনাগাদ সার্কুলার
+                  {lang === 'en' ? 'Live Circulars' : 'হালনাগাদ সার্কুলার'}
                 </span>
               </div>
               <h3 className="font-bold text-base text-slate-900 group-hover:text-[#f9902e] transition-colors mb-1.5">
-                Job Circular (জব সার্কুলার)
+                {t('navJobCircular')}
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                চলমান সকল সরকারি ও বেসরকারি নিয়োগ বিজ্ঞপ্তি, পদসংখ্যা, আবেদনের শেষ তারিখ ও সার্কুলার PDF।
+                {lang === 'en'
+                  ? 'All active government and bank job notices, vacancy counts, deadlines and circular PDFs.'
+                  : 'চলমান সকল সরকারি ও বেসরকারি নিয়োগ বিজ্ঞপ্তি, পদসংখ্যা, আবেদনের শেষ তারিখ ও সার্কুলার PDF।'}
               </p>
             </div>
             <span className="text-xs font-bold text-[#f9902e] flex items-center gap-1">
@@ -377,30 +388,67 @@ export const HomePage: React.FC = () => {
           </div>
         </section>
 
-        {/* 5. Trust Strip: ইনস্ট্যান্ট ডাউনলোড, নিরাপদ পেমেন্ট, ফ্রি স্যাম্পল, সাপোর্ট */}
+        {/* 5. Trust Strip: Instant Download, Secure Payment, Free Sample, Support */}
         <section
           className="bg-white rounded-[12px] p-6 sm:p-7 border border-slate-200 shadow-xs"
-          aria-label="নিরাপত্তা ও সেবা"
+          aria-label={lang === 'en' ? 'Security & Services' : 'নিরাপত্তা ও সেবা'}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
-            {trustBadges.map((badge, idx) => (
-              <div key={idx} className={`flex items-start gap-3.5 ${idx !== 0 ? 'sm:pl-6 pt-4 sm:pt-0' : ''}`}>
-                <div className="w-11 h-11 rounded-[10px] bg-pink-50 text-[#e2136e] flex items-center justify-center shrink-0 border border-pink-100">
-                  {badge.icon === 'zap' && <Zap size={22} />}
-                  {badge.icon === 'shield-check' && <ShieldCheck size={22} />}
-                  {badge.icon === 'book-open' && <BookOpen size={22} />}
-                  {badge.icon === 'headphones' && <Headphones size={22} />}
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm text-slate-900 mb-0.5">
-                    {badge.title}
-                  </h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    {badge.subtitle}
-                  </p>
-                </div>
+            <div className="flex items-start gap-3.5">
+              <div className="w-11 h-11 rounded-[10px] bg-pink-50 text-[#e2136e] flex items-center justify-center shrink-0 border border-pink-100">
+                <Zap size={22} />
               </div>
-            ))}
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 mb-0.5">
+                  {t('instantDownloadTitle')}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {t('instantDownloadSub')}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5 sm:pl-6 pt-4 sm:pt-0">
+              <div className="w-11 h-11 rounded-[10px] bg-pink-50 text-[#e2136e] flex items-center justify-center shrink-0 border border-pink-100">
+                <ShieldCheck size={22} />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 mb-0.5">
+                  {t('securePaymentTitle')}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {t('securePaymentSub')}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5 sm:pl-6 pt-4 sm:pt-0">
+              <div className="w-11 h-11 rounded-[10px] bg-pink-50 text-[#e2136e] flex items-center justify-center shrink-0 border border-pink-100">
+                <BookOpen size={22} />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 mb-0.5">
+                  {t('freeSampleTitle')}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {t('freeSampleSub')}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5 sm:pl-6 pt-4 sm:pt-0">
+              <div className="w-11 h-11 rounded-[10px] bg-pink-50 text-[#e2136e] flex items-center justify-center shrink-0 border border-pink-100">
+                <Headphones size={22} />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900 mb-0.5">
+                  {t('helplineTitle')}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {t('helplineSub')}
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -409,23 +457,23 @@ export const HomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
             <div>
               <span className="text-slate-600 font-bold text-xs uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-                বিষয়ভিত্তিক সংকলন
+                {lang === 'en' ? 'Curated Study Materials' : 'বিষয়ভিত্তিক সংকলন'}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-                জনপ্রিয় স্টাডি ক্যাটাগরি
+                {t('popularCategoriesTitle')}
               </h2>
             </div>
             <Link
               to="/shop"
               className="text-xs font-bold text-[#e2136e] hover:underline flex items-center gap-1"
             >
-              <span>সকল ক্যাটাগরি দেখুন</span>
+              <span>{lang === 'en' ? 'View All Categories' : 'সকল ক্যাটাগরি দেখুন'}</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* 1. স্টাডি প্ল্যানার */}
+            {/* 1. Study Planner */}
             <Link
               to="/category/planner"
               className="bg-white rounded-[12px] p-5 border border-slate-200 hover:border-[#e2136e] hover:shadow-sm transition-all group flex flex-col justify-between"
@@ -435,19 +483,21 @@ export const HomePage: React.FC = () => {
                   <Calendar size={22} />
                 </div>
                 <h3 className="font-bold text-base text-slate-900 group-hover:text-[#e2136e] transition-colors mb-1.5">
-                  স্টাডি প্ল্যানার
+                  {t('catPlanner')}
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                  দৈনিক রুটিন, সাপ্তাহিক গোল ট্র্যাকার, অধ্যায় সমাপ্তি চেকলিস্ট ও পরীক্ষার কাউন্টডাউন।
+                  {lang === 'en'
+                    ? 'Daily routines, weekly goal trackers, chapter checklists and exam countdowns.'
+                    : 'দৈনিক রুটিন, সাপ্তাহিক গোল ট্র্যাকার, অধ্যায় সমাপ্তি চেকলিস্ট ও পরীক্ষার কাউন্টডাউন।'}
                 </p>
               </div>
               <span className="text-xs font-bold text-[#e2136e] flex items-center gap-1">
-                <span>প্ল্যানার দেখুন</span>
+                <span>{lang === 'en' ? 'View Planners' : 'প্ল্যানার দেখুন'}</span>
                 <ArrowRight size={13} />
               </span>
             </Link>
 
-            {/* 2. সাবজেক্ট নোটস */}
+            {/* 2. Subject Notes */}
             <Link
               to="/category/notes"
               className="bg-white rounded-[12px] p-5 border border-slate-200 hover:border-[#0084a2] hover:shadow-sm transition-all group flex flex-col justify-between"
@@ -457,19 +507,21 @@ export const HomePage: React.FC = () => {
                   <FileText size={22} />
                 </div>
                 <h3 className="font-bold text-base text-slate-900 group-hover:text-[#0084a2] transition-colors mb-1.5">
-                  সাবজেক্ট নোটস
+                  {t('catNotes')}
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                  অধ্যায়ভিত্তিক রঙিন থিওরি, হ্যান্ডরিটেন ফর্মুলা শিট ও সহজে বোঝার স্পেশাল ডায়াগ্রাম।
+                  {lang === 'en'
+                    ? 'Chapter-wise colorful theory, handwritten formula sheets and easy visual diagrams.'
+                    : 'অধ্যায়ভিত্তিক রঙিন থিওরি, হ্যান্ডরিটেন ফর্মুলা শিট ও সহজে বোঝার স্পেশাল ডায়াগ্রাম।'}
                 </p>
               </div>
               <span className="text-xs font-bold text-[#0084a2] flex items-center gap-1">
-                <span>নোটস দেখুন</span>
+                <span>{lang === 'en' ? 'View Notes' : 'নোটস দেখুন'}</span>
                 <ArrowRight size={13} />
               </span>
             </Link>
 
-            {/* 3. এক্সাম প্রেপারেশন গাইড */}
+            {/* 3. Exam Preparation Guide */}
             <Link
               to="/category/exam-guide"
               className="bg-white rounded-[12px] p-5 border border-slate-200 hover:border-[#f9902e] hover:shadow-sm transition-all group flex flex-col justify-between"
@@ -479,19 +531,21 @@ export const HomePage: React.FC = () => {
                   <Target size={22} />
                 </div>
                 <h3 className="font-bold text-base text-slate-900 group-hover:text-[#f9902e] transition-colors mb-1.5">
-                  এক্সাম প্রেপারেশন গাইড
+                  {t('catExamGuide')}
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                  পরীক্ষার হলে সময় বণ্টন, উদ্দীপক ডিকোডিং ট্যাকটিকস এবং A+ পাওয়ার নিশ্চিত কৌশল।
+                  {lang === 'en'
+                    ? 'Exam hall time management, stimulus decoding tactics and guaranteed A+ strategies.'
+                    : 'পরীক্ষার হলে সময় বণ্টন, উদ্দীপক ডিকোডিং ট্যাকটিকস এবং A+ পাওয়ার নিশ্চিত কৌশল।'}
                 </p>
               </div>
               <span className="text-xs font-bold text-[#f9902e] flex items-center gap-1">
-                <span>গাইড দেখুন</span>
+                <span>{lang === 'en' ? 'View Guides' : 'গাইড দেখুন'}</span>
                 <ArrowRight size={13} />
               </span>
             </Link>
 
-            {/* 4. ডিজিটাল ওয়ার্কবুক */}
+            {/* 4. Digital Workbook */}
             <Link
               to="/category/workbook"
               className="bg-white rounded-[12px] p-5 border border-slate-200 hover:border-purple-600 hover:shadow-sm transition-all group flex flex-col justify-between"
@@ -501,14 +555,16 @@ export const HomePage: React.FC = () => {
                   <Layers size={22} />
                 </div>
                 <h3 className="font-bold text-base text-slate-900 group-hover:text-purple-600 transition-colors mb-1.5">
-                  ডিজিটাল ওয়ার্কবুক
+                  {t('catWorkbook')}
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                  হাতে-কলমে প্র্যাকটিস শিট, অঙ্ক ও ডায়াগ্রামের খালি টেমপ্লেট এবং সেলফ-অ্যাসেসমেন্ট।
+                  {lang === 'en'
+                    ? 'Hands-on practice sheets, blank math templates, diagrams and self-assessment drills.'
+                    : 'হাতে-কলমে প্র্যাকটিস শিট, অঙ্ক ও ডায়াগ্রামের খালি টেমপ্লেট এবং সেলফ-অ্যাসেসমেন্ট।'}
                 </p>
               </div>
               <span className="text-xs font-bold text-purple-600 flex items-center gap-1">
-                <span>ওয়ার্কবুক দেখুন</span>
+                <span>{lang === 'en' ? 'View Workbooks' : 'ওয়ার্কবুক দেখুন'}</span>
                 <ArrowRight size={13} />
               </span>
             </Link>
@@ -613,7 +669,7 @@ export const HomePage: React.FC = () => {
               to="/shop"
               className="inline-flex items-center gap-2 bg-white hover:bg-pink-50 text-[#e2136e] border-2 border-[#e2136e] font-bold text-sm px-8 py-3 rounded-[10px] transition-all shadow-xs"
             >
-              <span>সকল {toBengaliNumber(products.length)}+ প্রোডাক্ট দেখুন</span>
+              <span>{lang === 'en' ? `View All ${products.length}+ Products` : `সকল ${toBengaliNumber(products.length)}+ প্রোডাক্ট দেখুন`}</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -622,68 +678,78 @@ export const HomePage: React.FC = () => {
         {/* 8. Student Count Highlight (Editable Config) */}
         <section
           className="bg-gradient-to-r from-[#e2136e] via-[#c2105f] to-[#aa0e53] text-white rounded-[10px] p-8 sm:p-12 shadow-lg relative overflow-hidden text-center"
-          aria-label="শিক্ষার্থী পরিসংখ্যান"
+          aria-label={lang === 'en' ? 'Student Statistics' : 'শিক্ষার্থী পরিসংখ্যান'}
         >
           <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-xs flex items-center justify-center mb-4">
               <Users size={28} className="text-yellow-300" />
             </div>
             <span className="text-xs font-extrabold uppercase tracking-widest text-pink-200">
-              আমাদের সফল কমিউনিটি
+              {lang === 'en' ? 'Our Trusted Community' : 'আমাদের সফল কমিউনিটি'}
             </span>
             <h2 className="text-3xl sm:text-5xl font-black mt-2 mb-4 drop-shadow-sm">
-              দেশজুড়ে {siteConfig.studentCount} এর বেশি শিক্ষার্থীর আস্থা
+              {lang === 'en'
+                ? `Trusted by Over ${toLocalizedNumber(50000)}+ Students Nationwide`
+                : `দেশজুড়ে ${siteConfig.studentCount} এর বেশি শিক্ষার্থীর আস্থা`}
             </h2>
             <p className="text-sm sm:text-base text-pink-100 max-w-xl mb-8 leading-relaxed">
-              ঢাকা, চট্টগ্রাম, রাজশাহীসহ সারা দেশের স্বনামধন্য স্কুল ও কলেজের শিক্ষার্থীরা পড়ালেখা সহজ করতে বেছে নিয়েছে আমাদের ডিজিটাল রিসোর্স।
+              {lang === 'en'
+                ? 'Students from reputed schools and colleges across Dhaka, Chattogram, Rajshahi and nationwide choose our digital resources to excel in their studies.'
+                : 'ঢাকা, চট্টগ্রাম, রাজশাহীসহ সারা দেশের স্বনামধন্য স্কুল ও কলেজের শিক্ষার্থীরা পড়ালেখা সহজ করতে বেছে নিয়েছে আমাদের ডিজিটাল রিসোর্স।'}
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 w-full max-w-xl text-center border-t border-white/20 pt-6">
               <div>
                 <div className="text-2xl sm:text-3xl font-black text-yellow-300">
-                  {siteConfig.studentCount}
+                  {toLocalizedNumber(50000)}+
                 </div>
-                <div className="text-xs text-pink-100 mt-0.5">সন্তুষ্ট শিক্ষার্থী</div>
+                <div className="text-xs text-pink-100 mt-0.5">
+                  {lang === 'en' ? 'Satisfied Students' : 'সন্তুষ্ট শিক্ষার্থী'}
+                </div>
               </div>
               <div>
                 <div className="text-2xl sm:text-3xl font-black text-yellow-300">
-                  {siteConfig.resourceCount}
+                  {toLocalizedNumber(120)}+
                 </div>
-                <div className="text-xs text-pink-100 mt-0.5">ডিজিটাল নোটস ও বই</div>
+                <div className="text-xs text-pink-100 mt-0.5">
+                  {lang === 'en' ? 'Digital Notes & Books' : 'ডিজিটাল নোটস ও বই'}
+                </div>
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <div className="text-2xl sm:text-3xl font-black text-yellow-300">
-                  {siteConfig.satisfactionRate}
+                  {toLocalizedNumber(99)}%
                 </div>
-                <div className="text-xs text-pink-100 mt-0.5">পজিটিভ রিভিউ</div>
+                <div className="text-xs text-pink-100 mt-0.5">
+                  {lang === 'en' ? 'Positive Reviews' : 'পজিটিভ রিভিউ'}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* 9. "কেন আমাদের বেছে নেবেন": 4 Feature Cards */}
-        <section aria-label="আমাদের বৈশিষ্ট্য">
+        <section aria-label={lang === 'en' ? 'Our Features' : 'আমাদের বৈশিষ্ট্য'}>
           <div className="text-center max-w-xl mx-auto mb-8">
             <span className="text-slate-600 font-bold text-xs uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-              কেন আমরা সেরা
+              {t('whyBestBadge')}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-              কেন আমাদের বেছে নেবেন?
+              {t('whyChooseUsTitle')}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              শিক্ষার্থীদের সময় ও পড়ালেখার মান বৃদ্ধি নিশ্চিত করতে আমাদের প্রতিটি বই অনন্য
+              {t('whyChooseUsSub')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {chooseUsPoints.map((item, idx) => (
+            {chooseUsList[lang].map((item, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-[12px] p-5 border border-slate-200 hover:border-[#e2136e] hover:shadow-sm transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="w-9 h-9 rounded-full bg-pink-50 text-[#e2136e] font-bold text-xs flex items-center justify-center mb-3 border border-pink-100">
-                    {toBengaliNumber(idx + 1)}
+                    {toLocalizedNumber(idx + 1)}
                   </div>
                   <h3 className="font-bold text-base text-slate-900 mb-1.5 leading-snug">
                     {item.title}
@@ -694,7 +760,7 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
                   <CheckCircle2 size={13} />
-                  <span>যাচাইকৃত মান</span>
+                  <span>{lang === 'en' ? 'Verified Quality' : 'যাচাইকৃত মান'}</span>
                 </div>
               </div>
             ))}
@@ -704,17 +770,19 @@ export const HomePage: React.FC = () => {
         {/* 10. E-book Section (3 features & button to /ebooks) */}
         <section
           className="bg-white rounded-[12px] p-6 sm:p-10 border border-slate-200 shadow-xs flex flex-col lg:flex-row items-center gap-8 justify-between"
-          aria-label="ই-বুক সুবিধা"
+          aria-label={lang === 'en' ? 'E-book Benefits' : 'ই-বুক সুবিধা'}
         >
           <div className="max-w-xl">
             <span className="bg-pink-50 text-[#e2136e] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3 border border-pink-100">
-              স্মার্ট রিডিং অভিজ্ঞতা
+              {lang === 'en' ? 'Smart Reading Experience' : 'স্মার্ট রিডিং অভিজ্ঞতা'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">
-              যেকোনো ডিভাইসে পড়ুন, প্রিন্ট করুন বা হাইলাইট করুন
+              {lang === 'en' ? 'Read on Any Device, Print or Highlight with Ease' : 'যেকোনো ডিভাইসে পড়ুন, প্রিন্ট করুন বা হাইলাইট করুন'}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mb-6 leading-relaxed">
-              মোবাইলের স্ক্রিনে চোখ আটকে না রেখে অথবা ভারি বইয়ের বোঝা না টেনে, ট্যাবলেটে বা প্রিন্ট করে খুব সহজেই স্বাচ্ছন্দ্যে পড়াশোনা করুন।
+              {lang === 'en'
+                ? 'Study comfortably on your tablet, laptop or phone without carrying heavy textbooks, or print easily with crystal clear formatting.'
+                : 'মোবাইলের স্ক্রিনে চোখ আটকে না রেখে অথবা ভারি বইয়ের বোঝা না টেনে, ট্যাবলেটে বা প্রিন্ট করে খুব সহজেই স্বাচ্ছন্দ্যে পড়াশোনা করুন।'}
             </p>
 
             <div className="flex flex-col gap-2.5 mb-7">
@@ -723,7 +791,7 @@ export const HomePage: React.FC = () => {
                   <CheckCircle2 size={14} />
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-slate-800">
-                  ১০০% আনলকড ও পাসওয়ার্ডমুক্ত প্রিন্ট ফ্রেন্ডলি PDF ফাইল
+                  {lang === 'en' ? '100% unlocked and password-free print-friendly PDF files' : '১০০% আনলকড ও পাসওয়ার্ডমুক্ত প্রিন্ট ফ্রেন্ডলি PDF ফাইল'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -731,7 +799,7 @@ export const HomePage: React.FC = () => {
                   <CheckCircle2 size={14} />
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-slate-800">
-                  ক্লিকযোগ্য আধুনিক সূচিপত্র — এক ক্লিকে যেকোনো অধ্যায়ে জাম্প
+                  {lang === 'en' ? 'Interactive clickable table of contents — jump to any chapter instantly' : 'ক্লিকযোগ্য আধুনিক সূচিপত্র — এক ক্লিকে যেকোনো অধ্যায়ে জাম্প'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -739,7 +807,7 @@ export const HomePage: React.FC = () => {
                   <CheckCircle2 size={14} />
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-slate-800">
-                  হাই কোয়ালিটি ভেক্টর গ্রাফিক্স — জুম করলেও একটুও ফাটবে না
+                  {lang === 'en' ? 'High quality vector typography and formulas — crystal clear at any zoom level' : 'হাই কোয়ালিটি ভেক্টর গ্রাফিক্স — জুম করলেও একটুও ফাটবে না'}
                 </span>
               </div>
             </div>
@@ -748,7 +816,7 @@ export const HomePage: React.FC = () => {
               to="/ebooks"
               className="bg-[#e2136e] hover:bg-[#c2105f] text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-[10px] transition-all inline-flex items-center gap-2 shadow-xs"
             >
-              <span>সকল ই-বুক এক্সপ্লোর করুন</span>
+              <span>{lang === 'en' ? 'Explore All E-Books' : 'সকল ই-বুক এক্সপ্লোর করুন'}</span>
               <ArrowRight size={15} />
             </Link>
           </div>
@@ -758,103 +826,89 @@ export const HomePage: React.FC = () => {
               <BookOpen size={24} />
             </div>
             <h4 className="font-bold text-base text-slate-900 mb-1">
-              তাত্ক্ষণিক ফ্রি স্যাম্পল দেখে নিন
+              {lang === 'en' ? 'Get Instant Free Sample' : 'তাত্ক্ষণিক ফ্রি স্যাম্পল দেখে নিন'}
             </h4>
             <p className="text-xs text-slate-500 mb-4">
-              যেকোনো বই কেনার আগে কোয়ালিটি যাচাই করতে আমাদের ফ্রি স্যাম্পল সংগ্রহ করুন।
+              {lang === 'en'
+                ? 'Download our free sample packs to check layout quality and depth before purchasing.'
+                : 'যেকোনো বই কেনার আগে কোয়ালিটি যাচাই করতে আমাদের ফ্রি স্যাম্পল সংগ্রহ করুন।'}
             </p>
             <Link
               to="/free-sample"
               className="block bg-[#f9902e] hover:bg-[#f88114] text-slate-900 font-bold text-xs py-2.5 px-4 rounded-[8px] transition-all shadow-xs"
             >
-              ফ্রি স্যাম্পল ডাউনলোড
+              {t('freeSampleDownload')}
             </Link>
           </div>
         </section>
 
         {/* 11. Two Promo Banners: Annual Exam Bundle (School) & HSC Bundle (College) */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-5" aria-label="প্রমোশনাল বান্ডেল">
-          {/* Annual Exam Model Test Bundle (School) */}
-          <div className="bg-white rounded-[12px] p-6 border border-slate-200 hover:border-[#e2136e] transition-all shadow-xs flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="bg-pink-50 text-[#e2136e] text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-pink-100">
-                  স্কুল স্পেশাল
-                </span>
-                <span className="text-[11px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
-                  ৫০% ছাড়
-                </span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-1.5">
-                বার্ষিক পরীক্ষা অল-ইন-ওয়ান মডেল টেস্ট বান্ডেল (ক্লাস ৬–১০)
-              </h3>
-              <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                গণিত, বিজ্ঞান, ইংরেজি ও বাংলার জন্য ২০ সেট শীর্ষ স্কুলের প্রশ্ন এবং শতভাগ নির্ভরযোগ্য সমাধান ম্যানুয়াল।
-              </p>
-            </div>
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-5" aria-label={lang === 'en' ? 'Promotional Bundles' : 'প্রমোশনাল বান্ডেল'}>
+          {promoBundles[lang].map((bundle) => (
+            <div
+              key={bundle.id}
+              className={`bg-white rounded-[12px] p-6 border border-slate-200 hover:border-[${bundle.id === 'promo-school' ? '#e2136e' : '#f9902e'}] transition-all shadow-xs flex flex-col justify-between`}
+            >
               <div>
-                <span className="text-lg font-black text-[#e2136e]">৳ ২২০</span>
-                <span className="text-xs text-slate-400 line-through ml-2">৳ ৪৫০</span>
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
+                    bundle.id === 'promo-school'
+                      ? 'bg-pink-50 text-[#e2136e] border-pink-100'
+                      : 'bg-orange-50 text-[#f9902e] border-orange-100'
+                  }`}>
+                    {bundle.badge}
+                  </span>
+                  <span className="text-[11px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+                    {bundle.discount}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-1.5">
+                  {bundle.title}
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                  {bundle.desc}
+                </p>
               </div>
-              <Link
-                to="/product/class-8-annual-exam-model-test-bundle"
-                className="bg-[#e2136e] hover:bg-[#c2105f] text-white text-xs font-bold px-4 py-2 rounded-[8px] transition-all"
-              >
-                বান্ডেল সংগ্রহ করুন
-              </Link>
-            </div>
-          </div>
-
-          {/* HSC Model Test Bundle (College) */}
-          <div className="bg-white rounded-[12px] p-6 border border-slate-200 hover:border-[#f9902e] transition-all shadow-xs flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="bg-orange-50 text-[#f9902e] text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-orange-100">
-                  কলেজ স্পেশাল
-                </span>
-                <span className="text-[11px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
-                  ৫০% ছাড়
-                </span>
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span className="text-lg font-black text-[#e2136e]">
+                    {lang === 'en' ? `BDT ${bundle.price}` : `৳ ${toLocalizedNumber(bundle.price)}`}
+                  </span>
+                  <span className="text-xs text-slate-400 line-through ml-2">
+                    {lang === 'en' ? `BDT ${bundle.originalPrice}` : `৳ ${toLocalizedNumber(bundle.originalPrice)}`}
+                  </span>
+                </div>
+                <Link
+                  to={bundle.link}
+                  className={`text-xs font-bold px-4 py-2 rounded-[8px] transition-all ${
+                    bundle.id === 'promo-school'
+                      ? 'bg-[#e2136e] hover:bg-[#c2105f] text-white'
+                      : 'bg-[#f9902e] hover:bg-[#f88114] text-slate-900'
+                  }`}
+                >
+                  {lang === 'en' ? 'Get Bundle' : 'বান্ডেল সংগ্রহ করুন'}
+                </Link>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-1.5">
-                HSC বোর্ড স্ট্যান্ডার্ড মেগা মডেল টেস্ট ও ওএমআর বান্ডেল
-              </h3>
-              <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                পদার্থ, রসায়ন, উচ্চতর গণিত ও জীববিজ্ঞান বিষয়ের ৩০ সেট কমপ্লিট বোর্ড স্ট্যান্ডার্ড টেস্ট ও নম্বর বণ্টন।
-              </p>
             </div>
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-              <div>
-                <span className="text-lg font-black text-[#e2136e]">৳ ২৮০</span>
-                <span className="text-xs text-slate-400 line-through ml-2">৳ ৫৬০</span>
-              </div>
-              <Link
-                to="/product/hsc-mega-model-test-exam-bundle"
-                className="bg-[#f9902e] hover:bg-[#f88114] text-slate-900 text-xs font-bold px-4 py-2 rounded-[8px] transition-all"
-              >
-                বান্ডেল সংগ্রহ করুন
-              </Link>
-            </div>
-          </div>
+          ))}
         </section>
 
         {/* 12. FAQ Accordion */}
-        <section aria-label="সাধারণ জিজ্ঞাসা" className="max-w-4xl mx-auto">
+        <section aria-label={lang === 'en' ? 'Frequently Asked Questions' : 'সাধারণ জিজ্ঞাসা'} className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="text-slate-600 font-bold text-xs uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-              প্রশ্ন ও উত্তর
+              {lang === 'en' ? 'Q & A' : 'প্রশ্ন ও উত্তর'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-              সচরাচর জিজ্ঞাসিত প্রশ্ন (FAQ)
+              {t('faqTitle')}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              ডিজিটাল প্রোডাক্ট কেনা ও ডাউনলোড সম্পর্কিত সাধারণ প্রশ্নসমূহ
+              {lang === 'en' ? 'Frequently asked questions about digital notes and downloads' : 'ডিজিটাল প্রোডাক্ট কেনা ও ডাউনলোড সম্পর্কিত সাধারণ প্রশ্নসমূহ'}
             </p>
           </div>
 
           <div className="space-y-3">
-            {faqsList.map(faq => {
+            {bilingualFaqs[lang].map(faq => {
               const isOpen = openFaqId === faq.id;
               return (
                 <div
@@ -885,56 +939,56 @@ export const HomePage: React.FC = () => {
 
           <div className="text-center mt-6">
             <Link to="/faq" className="text-xs font-bold text-[#e2136e] hover:underline">
-              আরও কোনো প্রশ্ন আছে? সম্পূর্ণ FAQ পেজ দেখুন →
+              {lang === 'en' ? 'Have more questions? View the complete FAQ page →' : 'আরও কোনো প্রশ্ন আছে? সম্পূর্ণ FAQ পেজ দেখুন →'}
             </Link>
           </div>
         </section>
 
         {/* 13. Testimonials Slider */}
-        <section aria-label="শিক্ষার্থী ও অভিভাবকদের মতামত">
+        <section aria-label={lang === 'en' ? 'Testimonials' : 'শিক্ষার্থী ও অভিভাবকদের মতামত'}>
           <div className="text-center max-w-xl mx-auto mb-8">
             <span className="text-slate-600 font-bold text-xs uppercase tracking-wider bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-              অভিজ্ঞতা ও রিভিউ
+              {lang === 'en' ? 'Reviews & Feedback' : 'অভিজ্ঞতা ও রিভিউ'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-              শিক্ষার্থী ও অভিভাবকরা কী বলছেন
+              {lang === 'en' ? 'What Students & Parents Say' : 'শিক্ষার্থী ও অভিভাবকরা কী বলছেন'}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              আমাদের নিয়মিত পাঠকদের অভিজ্ঞতা (নমুনা কন্টেন্ট, যা আপনি সহজে পরিবর্তন করতে পারেন)
+              {lang === 'en' ? 'Real experiences from our regular readers and students' : 'আমাদের নিয়মিত পাঠকদের অভিজ্ঞতা (নমুনা কন্টেন্ট, যা আপনি সহজে পরিবর্তন করতে পারেন)'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {testimonialsList.map(t => (
+            {bilingualTestimonials[lang].map(item => (
               <div
-                key={t.id}
+                key={item.id}
                 className="bg-white rounded-[12px] p-5 border border-slate-200 shadow-xs flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex text-amber-400">
-                      {[...Array(t.rating)].map((_, i) => (
+                      {[...Array(item.rating)].map((_, i) => (
                         <Star key={i} size={14} className="fill-current" />
                       ))}
                     </div>
                     <span className="text-[10px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
-                      {t.badge}
+                      {item.badge}
                     </span>
                   </div>
 
                   <p className="text-xs text-slate-700 leading-relaxed mb-4 italic">
-                    "{t.comment}"
+                    "{item.comment}"
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
                   <div className="w-8 h-8 rounded-full bg-pink-50 text-[#e2136e] font-bold text-xs flex items-center justify-center shrink-0 border border-pink-100">
-                    {t.avatarText}
+                    {item.avatarText}
                   </div>
                   <div>
-                    <h4 className="font-bold text-xs text-slate-900">{t.name}</h4>
-                    <p className="text-[11px] text-slate-500">{t.role}</p>
-                    <p className="text-[10px] text-slate-400 line-clamp-1">{t.institution}</p>
+                    <h4 className="font-bold text-xs text-slate-900">{item.name}</h4>
+                    <p className="text-[11px] text-slate-500">{item.role}</p>
+                    <p className="text-[10px] text-slate-400 line-clamp-1">{item.institution}</p>
                   </div>
                 </div>
               </div>
@@ -945,17 +999,19 @@ export const HomePage: React.FC = () => {
         {/* 14. Contact Call-to-Action */}
         <section
           className="bg-gradient-to-r from-[#AA0E53] to-[#e2136e] text-white rounded-[10px] p-8 sm:p-12 shadow-lg"
-          aria-label="যোগাযোগ ও সহায়তা"
+          aria-label={lang === 'en' ? 'Assistance & Contact' : 'যোগাযোগ ও সহায়তা'}
         >
           <div className="max-w-3xl mx-auto text-center">
             <span className="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
-              সরাসরি যোগাযোগ
+              {lang === 'en' ? 'Direct Assistance' : 'সরাসরি যোগাযোগ'}
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold mb-3">
-              যেকোনো প্রশ্ন বা সহযোগিতায় আমরা আপনার পাশে আছি
+              {lang === 'en' ? 'We Are Here to Assist Your Learning Journey' : 'যেকোনো প্রশ্ন বা সহযোগিতায় আমরা আপনার পাশে আছি'}
             </h2>
             <p className="text-xs sm:text-sm text-pink-100 max-w-xl mx-auto mb-6 leading-relaxed">
-              ফাইল ডাউনলোড সংক্রান্ত জটিলতা, পেমেন্ট ভেরিফিকেশন বা কোনো বিষয় বুঝতে অসুবিধা হলে আমাদের সাপোর্ট টিমের সাথে সরাসরি যোগাযোগ করুন।
+              {lang === 'en'
+                ? 'If you have questions regarding file downloads, payment verification or study materials, our support team is available 24/7.'
+                : 'ফাইল ডাউনলোড সংক্রান্ত জটিলতা, পেমেন্ট ভেরিফিকেশন বা কোনো বিষয় বুঝতে অসুবিধা হলে আমাদের সাপোর্ট টিমের সাথে সরাসরি যোগাযোগ করুন।'}
             </p>
 
             <form
@@ -967,29 +1023,29 @@ export const HomePage: React.FC = () => {
                 required
                 value={ctaEmail}
                 onChange={e => setCtaEmail(e.target.value)}
-                placeholder="আপনার ইমেইল ঠিকানা দিন..."
+                placeholder={lang === 'en' ? 'Enter your email address...' : 'আপনার ইমেইল ঠিকানা দিন...'}
                 className="bg-white text-xs sm:text-sm text-[#0a0a0a] px-4 py-3 rounded-[10px] flex-1 focus:outline-none"
               />
               <button
                 type="submit"
                 className="bg-[#f9902e] hover:bg-[#f88114] text-[#0a0a0a] font-extrabold text-xs sm:text-sm px-5 py-3 rounded-[10px] transition-all shrink-0 flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
               >
-                <span>ফ্রি গাইড পান</span>
+                <span>{lang === 'en' ? 'Get Free Guide' : 'ফ্রি গাইড পান'}</span>
                 <Send size={14} />
               </button>
             </form>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-pink-100 font-medium">
               <Link to="/contact" className="hover:underline flex items-center gap-1">
-                <span>যোগাযোগ পেজ</span>
+                <span>{lang === 'en' ? 'Contact Page' : 'যোগাযোগ পেজ'}</span>
                 <ArrowRight size={13} />
               </Link>
               <span>•</span>
               <a href={siteConfig.contact.whatsapp} target="_blank" rel="noreferrer" className="hover:underline">
-                হোয়াটসঅ্যাপ: {siteConfig.contact.phone}
+                {lang === 'en' ? 'WhatsApp:' : 'হোয়াটসঅ্যাপ:'} {siteConfig.contact.phone}
               </a>
               <span>•</span>
-              <span>ইমেইল: {siteConfig.contact.email}</span>
+              <span>{lang === 'en' ? 'Email:' : 'ইমেইল:'} {siteConfig.contact.email}</span>
             </div>
           </div>
         </section>

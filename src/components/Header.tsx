@@ -155,7 +155,7 @@ export const Header: React.FC = () => {
                 {siteConfig.logoText}
               </span>
               <span className="text-[10px] text-pink-100 tracking-wider font-medium">
-                ডিজিটাল স্টাডি প্ল্যাটফর্ম
+                {lang === 'en' ? 'Digital Study Platform' : 'ডিজিটাল স্টাডি প্ল্যাটফর্ম'}
               </span>
             </div>
           </Link>
@@ -171,7 +171,7 @@ export const Header: React.FC = () => {
                 }`
               }
             >
-              হোম
+              {t('navHome')}
             </NavLink>
 
             {/* 2. School Dropdown */}
@@ -188,7 +188,7 @@ export const Header: React.FC = () => {
                   }`
                 }
               >
-                <span>স্কুল</span>
+                <span>{t('navSchool')}</span>
                 <ChevronDown size={14} />
               </NavLink>
 
@@ -197,73 +197,73 @@ export const Header: React.FC = () => {
                   <div className="grid grid-cols-2 gap-3 pb-2 border-b border-slate-100">
                     <div>
                       <div className="px-2 py-1 text-[11px] font-bold text-[#e2136e] uppercase tracking-wider">
-                        প্রাথমিক স্তর (১ম-৫ম)
+                        {lang === 'en' ? 'Primary (Class 1-5)' : 'প্রাথমিক স্তর (১ম-৫ম)'}
                       </div>
                       <Link
                         to="/school/class-1"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors"
                       >
-                        ক্লাস ১ (প্রথম শ্রেণি)
+                        {lang === 'en' ? 'Class 1 (Grade 1)' : 'ক্লাস ১ (প্রথম শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-2"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors"
                       >
-                        ক্লাস ২ (দ্বিতীয় শ্রেণি)
+                        {lang === 'en' ? 'Class 2 (Grade 2)' : 'ক্লাস ২ (দ্বিতীয় শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-3"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors"
                       >
-                        ক্লাস ৩ (তৃতীয় শ্রেণি)
+                        {lang === 'en' ? 'Class 3 (Grade 3)' : 'ক্লাস ৩ (তৃতীয় শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-4"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors"
                       >
-                        ক্লাস ৪ (চতুর্থ শ্রেণি)
+                        {lang === 'en' ? 'Class 4 (Grade 4)' : 'ক্লাস ৪ (চতুর্থ শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-5"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors"
                       >
-                        ক্লাস ৫ (বৃত্তি পরীক্ষা)
+                        {lang === 'en' ? 'Class 5 (Scholarship)' : 'ক্লাস ৫ (বৃত্তি পরীক্ষা)'}
                       </Link>
                     </div>
 
                     <div>
                       <div className="px-2 py-1 text-[11px] font-bold text-[#0084a2] uppercase tracking-wider">
-                        মাধ্যমিক স্তর (৬ষ্ঠ-১০ম)
+                        {lang === 'en' ? 'Secondary (Class 6-10)' : 'মাধ্যমিক স্তর (৬ষ্ঠ-১০ম)'}
                       </div>
                       <Link
                         to="/school/class-6"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-sky-50 hover:text-[#0084a2] rounded-md transition-colors"
                       >
-                        ক্লাস ৬ (ষষ্ঠ শ্রেণি)
+                        {lang === 'en' ? 'Class 6 (Grade 6)' : 'ক্লাস ৬ (ষষ্ঠ শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-7"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-sky-50 hover:text-[#0084a2] rounded-md transition-colors"
                       >
-                        ক্লাস ৭ (সপ্তম শ্রেণি)
+                        {lang === 'en' ? 'Class 7 (Grade 7)' : 'ক্লাস ৭ (সপ্তম শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-8"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-sky-50 hover:text-[#0084a2] rounded-md transition-colors"
                       >
-                        ক্লাস ৮ (অষ্টম শ্রেণি)
+                        {lang === 'en' ? 'Class 8 (Grade 8)' : 'ক্লাস ৮ (অষ্টম শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-9"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-sky-50 hover:text-[#0084a2] rounded-md transition-colors"
                       >
-                        ক্লাস ৯ (নবম শ্রেণি)
+                        {lang === 'en' ? 'Class 9 (Grade 9)' : 'ক্লাস ৯ (নবম শ্রেণি)'}
                       </Link>
                       <Link
                         to="/school/class-10"
                         className="block px-2 py-1.5 text-xs font-medium text-slate-700 hover:bg-sky-50 hover:text-[#0084a2] rounded-md transition-colors"
                       >
-                        ক্লাস ১০ / এসএসসি
+                        {lang === 'en' ? 'Class 10 / SSC' : 'ক্লাস ১০ / এসএসসি'}
                       </Link>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ export const Header: React.FC = () => {
                       to="/school"
                       className="block py-1 text-xs font-bold text-[#e2136e] hover:underline"
                     >
-                      স্কুলের সকল শ্রেণির বই ও রিসোর্স দেখুন →
+                      {lang === 'en' ? 'View All School Classes & Resources →' : 'স্কুলের সকল শ্রেণির বই ও রিসোর্স দেখুন →'}
                     </Link>
                   </div>
                 </div>
@@ -477,13 +477,13 @@ export const Header: React.FC = () => {
 
           {/* Right Action: Free Sample Button & Account (Wishlist & Cart REMOVED as requested) */}
           <div className="flex items-center gap-1 sm:gap-2">
-            {/* ফ্রি স্যাম্পল button */}
+            {/* Free sample button */}
             <Link
               to="/free-sample"
               className="hidden md:flex items-center gap-1 bg-[#f9902e] hover:bg-[#f88114] text-[#0a0a0a] text-xs font-bold px-3 py-1.5 rounded-[10px] transition-all shadow-xs mr-1"
             >
               <Gift size={14} />
-              <span>ফ্রি স্যাম্পল</span>
+              <span>{t('freeSample')}</span>
             </Link>
 
             <div className="hidden sm:block h-6 w-px bg-white/20 mx-1" />
@@ -492,10 +492,10 @@ export const Header: React.FC = () => {
             <Link
               to="/my-account"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] bg-white/10 hover:bg-white/20 transition-colors text-white text-xs font-medium"
-              title="আমার একাউন্ট"
+              title={lang === 'en' ? 'My Account' : 'আমার একাউন্ট'}
             >
               <User size={16} />
-              <span>{currentUser ? 'একাউন্ট' : 'লগইন'}</span>
+              <span>{currentUser ? (lang === 'en' ? 'Account' : 'একাউন্ট') : (lang === 'en' ? 'Login' : 'লগইন')}</span>
             </Link>
 
             {/* Mobile Hamburger toggle */}
@@ -503,7 +503,7 @@ export const Header: React.FC = () => {
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="xl:hidden ml-1 p-2 rounded-md hover:bg-white/15 text-white transition-colors cursor-pointer"
-              aria-label={mobileMenuOpen ? 'মেনু বন্ধ করুন' : 'মেনু খুলুন'}
+              aria-label={mobileMenuOpen ? (lang === 'en' ? 'Close menu' : 'মেনু বন্ধ করুন') : (lang === 'en' ? 'Open menu' : 'মেনু খুলুন')}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -519,7 +519,7 @@ export const Header: React.FC = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="প্রোডাক্ট বা বিষয় খুঁজুন..."
+                placeholder={lang === 'en' ? 'Search products or subjects...' : 'প্রোডাক্ট বা বিষয় খুঁজুন...'}
                 value={mobileSearchQuery}
                 onChange={e => setMobileSearchQuery(e.target.value)}
                 className="w-full bg-[#f5f5f5] text-sm pl-9 pr-20 py-2.5 rounded-[10px] border border-[#e5e5e5] focus:outline-none focus:border-[#e2136e]"
@@ -529,7 +529,7 @@ export const Header: React.FC = () => {
                 type="submit"
                 className="absolute right-1.5 top-1.5 bg-[#e2136e] text-white text-xs font-bold px-3 py-1.5 rounded-[8px]"
               >
-                খুঁজুন
+                {lang === 'en' ? 'Search' : 'খুঁজুন'}
               </button>
             </div>
           </form>
@@ -542,19 +542,19 @@ export const Header: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 px-2 hover:bg-[#ffdeee] hover:text-[#e2136e] rounded-md"
             >
-              হোম (Home)
+              {t('navHome')}
             </Link>
 
             {/* 2. School */}
             <div className="py-2">
               <div className="flex items-center justify-between px-2 text-xs text-gray-500 font-bold uppercase">
-                <span>স্কুল (১ম–১০ম শ্রেণি)</span>
+                <span>{lang === 'en' ? 'School (Class 1–10)' : 'স্কুল (১ম–১০ম শ্রেণি)'}</span>
                 <Link
                   to="/school"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-[#e2136e] font-bold"
                 >
-                  সকল বই →
+                  {lang === 'en' ? 'All Books →' : 'সকল বই →'}
                 </Link>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mt-1.5">
@@ -563,70 +563,70 @@ export const Header: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ১
+                  {lang === 'en' ? 'Class 1' : 'ক্লাস ১'}
                 </Link>
                 <Link
                   to="/school/class-2"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ২
+                  {lang === 'en' ? 'Class 2' : 'ক্লাস ২'}
                 </Link>
                 <Link
                   to="/school/class-3"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ৩
+                  {lang === 'en' ? 'Class 3' : 'ক্লাস ৩'}
                 </Link>
                 <Link
                   to="/school/class-4"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ৪
+                  {lang === 'en' ? 'Class 4' : 'ক্লাস ৪'}
                 </Link>
                 <Link
                   to="/school/class-5"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center font-medium"
                 >
-                  ক্লাস ৫ (বৃত্তি)
+                  {lang === 'en' ? 'Class 5 (Scholarship)' : 'ক্লাস ৫ (বৃত্তি)'}
                 </Link>
                 <Link
                   to="/school/class-6"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ৬
+                  {lang === 'en' ? 'Class 6' : 'ক্লাস ৬'}
                 </Link>
                 <Link
                   to="/school/class-7"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ৭
+                  {lang === 'en' ? 'Class 7' : 'ক্লাস ৭'}
                 </Link>
                 <Link
                   to="/school/class-8"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ৮
+                  {lang === 'en' ? 'Class 8' : 'ক্লাস ৮'}
                 </Link>
                 <Link
                   to="/school/class-9"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center"
                 >
-                  ক্লাস ৯
+                  {lang === 'en' ? 'Class 9' : 'ক্লাস ৯'}
                 </Link>
                 <Link
                   to="/school/class-10"
                   onClick={() => setMobileMenuOpen(false)}
                   className="col-span-2 sm:col-span-3 py-1.5 px-2.5 text-xs text-slate-700 bg-slate-50 hover:bg-pink-50 hover:text-[#e2136e] rounded-md transition-colors text-center font-bold"
                 >
-                  ক্লাস ১০ / এসএসসি
+                  {lang === 'en' ? 'Class 10 / SSC' : 'ক্লাস ১০ / এসএসসি'}
                 </Link>
               </div>
             </div>

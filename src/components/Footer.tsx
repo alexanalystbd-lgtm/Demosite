@@ -146,10 +146,12 @@ export const Footer: React.FC = () => {
           {/* Column 4: Social & Community */}
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-sm text-yellow-300 uppercase tracking-wider border-b border-white/20 pb-2">
-              আমাদের সোশ্যাল কমিউনিটি
+              {t('footerSocial')}
             </h4>
             <p className="text-xs text-pink-100">
-              পরীক্ষার আপডেট, ফ্রি সাজেশন এবং লাইভ স্টাডি সেশনের জন্য আমাদের সোশ্যাল চ্যানেলে যুক্ত থাকুন।
+              {lang === 'en'
+                ? 'Join our social community for exam updates, free revision packs and live study announcements.'
+                : 'পরীক্ষার আপডেট, ফ্রি সাজেশন এবং লাইভ স্টাডি সেশনের জন্য আমাদের সোশ্যাল চ্যানেলে যুক্ত থাকুন।'}
             </p>
 
             <div className="flex flex-col gap-2 mt-2">
@@ -159,7 +161,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-[8px] text-xs font-semibold flex items-center justify-between transition-colors"
               >
-                <span>ফেসবুক গ্রুপ ও পেইজ</span>
+                <span>{lang === 'en' ? 'Facebook Group & Page' : 'ফেসবুক গ্রুপ ও পেইজ'}</span>
                 <ExternalLink size={14} />
               </a>
 
@@ -169,7 +171,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-[8px] text-xs font-semibold flex items-center justify-between transition-colors"
               >
-                <span>ইউটিউব চ্যানেল (ফ্রি ক্লাস)</span>
+                <span>{lang === 'en' ? 'YouTube Channel (Free Classes)' : 'ইউটিউব চ্যানেল (ফ্রি ক্লাস)'}</span>
                 <ExternalLink size={14} />
               </a>
 
@@ -179,7 +181,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 className="bg-[#00a544] hover:bg-[#028b3a] px-3 py-2 rounded-[8px] text-xs font-bold flex items-center justify-between text-white transition-colors shadow-xs"
               >
-                <span>হোয়াটসঅ্যাপে সরাসরি চ্যাট</span>
+                <span>{lang === 'en' ? 'WhatsApp Live Chat' : 'হোয়াটসঅ্যাপে সরাসরি চ্যাট'}</span>
                 <ExternalLink size={14} />
               </a>
 
@@ -189,7 +191,7 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-[8px] text-xs font-semibold flex items-center justify-between transition-colors"
               >
-                <span>টিকটক স্টাডি শর্টস</span>
+                <span>{lang === 'en' ? 'TikTok Study Shorts' : 'টিকটক স্টাডি শর্টস'}</span>
                 <ExternalLink size={14} />
               </a>
             </div>

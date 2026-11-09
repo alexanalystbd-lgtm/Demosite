@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ProductCoverProps {
   title: string;
@@ -15,10 +16,13 @@ export const ProductCover: React.FC<ProductCoverProps> = ({
   subject,
   classLabel,
   themeColor = '#e2136e',
-  categoryLabel = 'ডিজিটাল ই-বুক',
+  categoryLabel,
   iconType = 'book',
   className = ''
 }) => {
+  const { lang } = useLanguage();
+  const effectiveCategoryLabel = categoryLabel || (lang === 'en' ? 'Digital E-Book' : 'ডিজিটাল ই-বুক');
+
   // Generate consistent subtle accent colors
   const isDarkPink = themeColor === '#e2136e';
   const bgGrad = isDarkPink
@@ -54,7 +58,7 @@ export const ProductCover: React.FC<ProductCoverProps> = ({
       {/* Top row: Category & Class Pill */}
       <div className="relative z-10 flex items-center justify-between gap-1 pl-2">
         <span className="bg-white/25 backdrop-blur-xs text-[11px] font-medium px-2 py-0.5 rounded-full tracking-wide">
-          {categoryLabel}
+          {effectiveCategoryLabel}
         </span>
         <span className="bg-black/30 text-[11px] font-semibold px-2 py-0.5 rounded-full border border-white/20 text-yellow-200">
           {classLabel}
@@ -120,8 +124,10 @@ export const ProductCover: React.FC<ProductCoverProps> = ({
           {title}
         </h4>
         <div className="flex items-center justify-between text-[10px] text-pink-100 mt-0.5">
-          <span>ডিজিটাল সংস্করণ</span>
-          <span className="text-yellow-300 font-medium">প্রিন্টযোগ্য PDF</span>
+          <span>{lang === 'en' ? 'Digital Edition' : 'ডিজিটাল সংস্করণ'}</span>
+          <span className="text-yellow-300 font-medium">
+            {lang === 'en' ? 'Printable PDF' : 'প্রিন্টযোগ্য PDF'}
+          </span>
         </div>
       </div>
     </div>

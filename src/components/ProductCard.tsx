@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { Star, Download, ArrowRight } from 'lucide-react';
 import { DigitalProduct } from '../data/products';
 import { ProductCover } from './ProductCover';
-import { formatPrice, toBengaliNumber } from '../utils/shopLogic';
+import { useLanguage } from '../context/LanguageContext';
+import { localizeProduct } from '../data/translationsData';
 
 interface ProductCardProps {
   product: DigitalProduct;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { lang, t, toLocalizedNumber, formatPrice } = useLanguage();
+  const localized = localizeProduct(product, lang);
+
   // Discount calculation
   const discountPercent =
     product.originalPrice > product.price
@@ -22,15 +26,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="absolute top-2.5 left-2.5 z-20">
         {product.isFree ? (
           <span className="bg-[#00a544] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-xs">
-            ১০০% ফ্রি
+            {t('hundredPercentFree')}
           </span>
         ) : discountPercent > 0 ? (
           <span className="bg-[#e2136e] text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-            {toBengaliNumber(discountPercent)}% ছাড়
+            {toLocalizedNumber(discountPercent)}% {t('offLabel')}
           </span>
         ) : (
           <span className="bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-xs">
-            ডিজিটাল PDF
+            {t('digitalPdf')}
           </span>
         )}
       </div>
@@ -38,10 +42,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Clickable Image / Cover Area */}
       <Link to={`/product/${product.slug}`} className="block relative overflow-hidden bg-slate-50">
         <ProductCover
-          title={product.title}
-          subject={product.subject}
-          classLabel={product.classLabel}
-          categoryLabel={product.categoryLabel}
+          title={localized.title}
+          subject={localized.subject}
+          classLabel={localized.classLabel}
+          categoryLabel={localized.categoryLabel}
           themeColor={product.themeColor}
           iconType={product.iconType}
           className="group-hover:scale-102 transition-transform duration-200"
@@ -54,12 +58,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Class label & Rating */}
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
             <span className="font-semibold text-[#0084a2] bg-slate-100 px-2 py-0.5 rounded-sm text-[11px]">
-              {product.classLabel}
+              {localized.classLabel}
             </span>
             <div className="flex items-center gap-1 text-amber-500 font-medium text-xs">
               <Star size={11} className="fill-current" />
-              <span>{toBengaliNumber(product.rating)}</span>
-              <span className="text-slate-400">({toBengaliNumber(product.reviewCount)})</span>
+              <span>{toLocalizedNumber(product.rating)}</span>
+              <span className="text-slate-400">({toLocalizedNumber(product.reviewCount)})</span>
             </div>
           </div>
 
@@ -67,14 +71,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Link
             to={`/product/${product.slug}`}
             className="block text-sm font-bold text-slate-900 hover:text-[#e2136e] transition-colors line-clamp-2 leading-snug mb-1.5"
-            title={product.title}
+            title={localized.title}
           >
-            {product.title}
+            {localized.title}
           </Link>
 
           {/* Short specs */}
           <p className="text-xs text-slate-500 line-clamp-1 mb-3">
-            {product.pageCount ? `${toBengaliNumber(product.pageCount)} পৃষ্ঠা` : ''} • {product.format}
+            {product.pageCount ? `${toLocalizedNumber(product.pageCount)} ${t('pagesCountSuffix')}` : ''} • {localized.format}
           </p>
         </div>
 
@@ -87,12 +91,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </span>
               {product.originalPrice > product.price && (
                 <span className="text-xs text-slate-400 line-through">
-                  ৳ {toBengaliNumber(product.originalPrice)}
+                  {formatPrice(product.originalPrice)}
                 </span>
               )}
             </div>
             <span className="text-[11px] text-slate-500">
-              {toBengaliNumber(product.salesCount)}+ শিক্ষার্থী
+              {toLocalizedNumber(product.salesCount)}+ {t('studentsSuffix')}
             </span>
           </div>
 
@@ -104,11 +108,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.isFree ? (
               <>
                 <Download size={13} />
-                <span>ফ্রি পড়ুন ও ডাউনলোড</span>
+                <span>{lang === 'en' ? 'Free Read & Download' : 'ফ্রি পড়ুন ও ডাউনলোড'}</span>
               </>
             ) : (
               <>
-                <span>বিস্তারিত ও সংগ্রহ</span>
+                <span>{t('viewDetails')}</span>
                 <ArrowRight size={13} />
               </>
             )}

@@ -13,7 +13,9 @@ import {
 } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { useShop } from '../context/ShopContext';
+import { useLanguage } from '../context/LanguageContext';
 import { categoriesList, classesList, subjectsList } from '../data/products';
+import { categoryNames, classNames, subjectNames } from '../data/translationsData';
 import { filterAndSortProducts, toBengaliNumber } from '../utils/shopLogic';
 
 interface ListingPageProps {
@@ -34,6 +36,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
   pageDescription
 }) => {
   const { products } = useShop();
+  const { lang, t, toLocalizedNumber } = useLanguage();
   const { classLevel: paramClassLevel, slug: paramSlug } = useParams<{ classLevel?: string; slug?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -107,25 +110,31 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
   // Determine dynamic title
   const displayTitle = useMemo(() => {
     if (pageTitle) return pageTitle;
-    if (forcedFreeOnly) return '১০০% ফ্রি ডিজিটাল স্টাডি প্রোডাক্টস';
+    if (forcedFreeOnly) {
+      return lang === 'en' ? '100% Free Digital Study Products' : '১০০% ফ্রি ডিজিটাল স্টাডি প্রোডাক্টস';
+    }
     if (selectedClass !== 'all') {
-      const cls = classesList.find(c => c.slug === selectedClass);
-      if (cls) return `${cls.name} এর ডিজিটাল বই ও নোটস`;
+      const clsName = classNames[selectedClass]?.[lang] || selectedClass;
+      return lang === 'en' ? `${clsName} Digital Books & Notes` : `${clsName} এর ডিজিটাল বই ও নোটস`;
     }
     if (selectedCategory !== 'all') {
-      const cat = categoriesList.find(c => c.slug === selectedCategory);
-      if (cat) return `${cat.name} সংকলন`;
+      const catName = categoryNames[selectedCategory]?.[lang] || selectedCategory;
+      return lang === 'en' ? `${catName} Collection` : `${catName} সংকলন`;
     }
-    if (selectedSection === 'school') return 'স্কুল সেকশন (১ম–১০ম শ্রেণি)';
-    if (selectedSection === 'college') return 'কলেজ সেকশন (HSC)';
-    return 'সকল ডিজিটাল স্টাডি প্রোডাক্টস';
-  }, [pageTitle, forcedFreeOnly, selectedClass, selectedCategory, selectedSection]);
+    if (selectedSection === 'school') {
+      return lang === 'en' ? 'School Section (Class 1–10)' : 'স্কুল সেকশন (১ম–১০ম শ্রেণি)';
+    }
+    if (selectedSection === 'college') {
+      return lang === 'en' ? 'College Section (HSC)' : 'কলেজ সেকশন (HSC)';
+    }
+    return lang === 'en' ? 'All Digital Study Products' : 'সকল ডিজিটাল স্টাডি প্রোডাক্টস';
+  }, [pageTitle, forcedFreeOnly, selectedClass, selectedCategory, selectedSection, lang]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-xs text-[#626262] mb-4" aria-label="ব্রেডক্রাম্ব">
-        <Link to="/" className="hover:text-[#e2136e]">হোম</Link>
+      <nav className="flex items-center gap-2 text-xs text-[#626262] mb-4" aria-label={lang === 'en' ? 'Breadcrumb' : 'ব্রেডক্রাম্ব'}>
+        <Link to="/" className="hover:text-[#e2136e]">{t('navHome')}</Link>
         <span>/</span>
         <span className="text-[#0a0a0a] font-semibold">{displayTitle}</span>
       </nav>
@@ -138,7 +147,9 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           </h1>
           <p className="text-xs sm:text-sm text-[#626262] mt-1">
             {pageDescription ||
-              `মোট ${toBengaliNumber(filteredProducts.length)} টি ডিজিটাল রিসোর্স পাওয়া গেছে।`}
+              (lang === 'en'
+                ? `Total ${toLocalizedNumber(filteredProducts.length)} digital resources found.`
+                : `মোট ${toBengaliNumber(filteredProducts.length)} টি ডিজিটাল রিসোর্স পাওয়া গেছে।`)}
           </p>
         </div>
 
@@ -148,7 +159,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="প্রোডাক্ট খুঁজুন..."
+            placeholder={lang === 'en' ? 'Search products...' : 'প্রোডাক্ট খুঁজুন...'}
             className="w-full bg-[#f5f5f5] text-xs sm:text-sm pl-9 pr-8 py-2.5 rounded-[10px] border border-[#e5e5e5] focus:outline-none focus:border-[#e2136e]"
           />
           <Search size={15} className="absolute left-3 top-3 text-gray-400" />
@@ -170,7 +181,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           <div className="flex items-center justify-between border-b border-gray-100 pb-3">
             <div className="flex items-center gap-2 font-bold text-sm text-[#0a0a0a]">
               <SlidersHorizontal size={16} className="text-[#e2136e]" />
-              <span>ফিল্টার করুন</span>
+              <span>{lang === 'en' ? 'Filter Options' : 'ফিল্টার করুন'}</span>
             </div>
             <button
               type="button"
@@ -178,7 +189,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
               className="text-xs text-[#e2136e] hover:underline flex items-center gap-1 cursor-pointer font-medium"
             >
               <RotateCcw size={12} />
-              <span>রিসেট</span>
+              <span>{lang === 'en' ? 'Reset' : 'রিসেট'}</span>
             </button>
           </div>
 
@@ -186,13 +197,13 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           {!forcedSection && (
             <div>
               <label className="block text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-2">
-                বিভাগ
+                {lang === 'en' ? 'Section' : 'বিভাগ'}
               </label>
               <div className="flex flex-col gap-1.5 text-xs">
                 {[
-                  { id: 'all', label: 'সকল বিভাগ' },
-                  { id: 'school', label: 'স্কুল (ক্লাস ৬-১০)' },
-                  { id: 'college', label: 'কলেজ (HSC)' }
+                  { id: 'all', label: lang === 'en' ? 'All Sections' : 'সকল বিভাগ' },
+                  { id: 'school', label: lang === 'en' ? 'School (Class 1-10)' : 'স্কুল (ক্লাস ১-১০)' },
+                  { id: 'college', label: lang === 'en' ? 'College (HSC)' : 'কলেজ (HSC)' }
                 ].map(opt => (
                   <button
                     key={opt.id}
@@ -215,7 +226,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           {!forcedClassLevel && (
             <div>
               <label className="block text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-2">
-                শ্রেণি / ক্লাস
+                {lang === 'en' ? 'Class / Grade' : 'শ্রেণি / ক্লাস'}
               </label>
               <div className="flex flex-col gap-1 text-xs">
                 <button
@@ -227,7 +238,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                       : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
-                  সকল শ্রেণি
+                  {lang === 'en' ? 'All Classes' : 'সকল শ্রেণি'}
                 </button>
                 {classesList
                   .filter(c => selectedSection === 'all' || c.section === selectedSection)
@@ -242,7 +253,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                           : 'text-gray-600 hover:bg-gray-50'
                       }`}
                     >
-                      {cls.name}
+                      {lang === 'en' ? classNames[cls.slug]?.en || cls.name : cls.name}
                     </button>
                   ))}
               </div>
@@ -252,9 +263,20 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           {/* Category Filter */}
           <div>
             <label className="block text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-2">
-              ক্যাটাগরি
+              {lang === 'en' ? 'Category' : 'ক্যাটাগরি'}
             </label>
             <div className="flex flex-col gap-1 text-xs">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('all')}
+                className={`text-left px-2.5 py-1.5 rounded-md transition-colors ${
+                  selectedCategory === 'all'
+                    ? 'bg-[#ffdeee] text-[#e2136e] font-bold'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                {lang === 'en' ? 'All Categories' : 'সকল ক্যাটাগরি'}
+              </button>
               {categoriesList.map(cat => (
                 <button
                   key={cat.id}
@@ -266,7 +288,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                       : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
-                  {cat.name}
+                  {lang === 'en' ? categoryNames[cat.id]?.en || cat.name : cat.name}
                 </button>
               ))}
             </div>
@@ -275,7 +297,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           {/* Subject Filter */}
           <div>
             <label className="block text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-2">
-              বিষয়
+              {lang === 'en' ? 'Subject' : 'বিষয়'}
             </label>
             <select
               value={selectedSubject}
@@ -284,7 +306,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
             >
               {subjectsList.map(sub => (
                 <option key={sub} value={sub}>
-                  {sub}
+                  {lang === 'en' ? subjectNames[sub]?.en || sub : sub}
                 </option>
               ))}
             </select>
@@ -294,13 +316,13 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           {!forcedFreeOnly && (
             <div>
               <label className="block text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-2">
-                মূল্য ধরণ
+                {lang === 'en' ? 'Price Type' : 'মূল্য ধরণ'}
               </label>
               <div className="grid grid-cols-3 gap-1 text-xs">
                 {[
-                  { id: 'all', label: 'সকল' },
-                  { id: 'free', label: '১০০% ফ্রি' },
-                  { id: 'paid', label: 'পেইড' }
+                  { id: 'all', label: lang === 'en' ? 'All' : 'সকল' },
+                  { id: 'free', label: lang === 'en' ? '100% Free' : '১০০% ফ্রি' },
+                  { id: 'paid', label: lang === 'en' ? 'Paid' : 'পেইড' }
                 ].map(pt => (
                   <button
                     key={pt.id}
@@ -331,31 +353,37 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
               className="lg:hidden flex items-center gap-1.5 bg-[#f5f5f5] hover:bg-gray-200 text-[#0a0a0a] px-3 py-1.5 rounded-[8px] text-xs font-bold"
             >
               <Filter size={14} className="text-[#e2136e]" />
-              <span>ফিল্টার</span>
+              <span>{lang === 'en' ? 'Filters' : 'ফিল্টার'}</span>
             </button>
 
             {/* Result count */}
             <div className="text-xs text-[#626262]">
-              প্রদর্শিত হচ্ছে{' '}
-              <span className="font-bold text-[#0a0a0a]">
-                {toBengaliNumber(filteredProducts.length)}
-              </span>{' '}
-              টি প্রোডাক্ট
+              {lang === 'en' ? (
+                <>
+                  Showing <span className="font-bold text-[#0a0a0a]">{toLocalizedNumber(filteredProducts.length)}</span> products
+                </>
+              ) : (
+                <>
+                  প্রদর্শিত হচ্ছে <span className="font-bold text-[#0a0a0a]">{toBengaliNumber(filteredProducts.length)}</span> টি প্রোডাক্ট
+                </>
+              )}
             </div>
 
             {/* Sort Select */}
             <div className="flex items-center gap-2">
-              <label className="text-xs text-[#626262] hidden sm:inline">সর্ট করুন:</label>
+              <label className="text-xs text-[#626262] hidden sm:inline">
+                {lang === 'en' ? 'Sort by:' : 'সর্ট করুন:'}
+              </label>
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as any)}
                 className="bg-[#f5f5f5] text-xs font-semibold text-[#0a0a0a] px-2.5 py-1.5 rounded-[8px] border border-gray-200 focus:outline-none focus:border-[#e2136e] cursor-pointer"
               >
-                <option value="popular">সবচেয়ে জনপ্রিয়</option>
-                <option value="newest">নতুন আপলোড</option>
-                <option value="price-asc">দাম: কম থেকে বেশি</option>
-                <option value="price-desc">দাম: বেশি থেকে কম</option>
-                <option value="rating">সর্বোচ্চ রেটিং</option>
+                <option value="popular">{lang === 'en' ? 'Most Popular' : 'সবচেয়ে জনপ্রিয়'}</option>
+                <option value="newest">{lang === 'en' ? 'Newest Uploads' : 'নতুন আপলোড'}</option>
+                <option value="price-asc">{lang === 'en' ? 'Price: Low to High' : 'দাম: কম থেকে বেশি'}</option>
+                <option value="price-desc">{lang === 'en' ? 'Price: High to Low' : 'দাম: বেশি থেকে কম'}</option>
+                <option value="rating">{lang === 'en' ? 'Highest Rating' : 'সর্বোচ্চ রেটিং'}</option>
               </select>
             </div>
           </div>
@@ -373,10 +401,12 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                 <BookOpen size={32} />
               </div>
               <h3 className="text-lg font-bold text-[#0a0a0a] mb-2">
-                দুঃখিত, কোনো প্রোডাক্ট পাওয়া যায়নি!
+                {lang === 'en' ? 'Sorry, no products found!' : 'দুঃখিত, কোনো প্রোডাক্ট পাওয়া যায়নি!'}
               </h3>
               <p className="text-xs text-[#626262] max-w-sm mb-6">
-                আপনার দেওয়া ফিল্টারের সাথে কোনো স্টাডি প্রোডাক্ট মেলেনি। অনুগ্রহ করে ফিল্টার পরিবর্তন করুন অথবা রিসেট করুন।
+                {lang === 'en'
+                  ? 'No study products matched your current filters. Please adjust your filters or reset.'
+                  : 'আপনার দেওয়া ফিল্টারের সাথে কোনো স্টাডি প্রোডাক্ট মেলেনি। অনুগ্রহ করে ফিল্টার পরিবর্তন করুন অথবা রিসেট করুন।'}
               </p>
               <button
                 type="button"
@@ -384,7 +414,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                 className="bg-[#e2136e] hover:bg-[#c2105f] text-white text-xs font-bold px-6 py-2.5 rounded-[10px] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
                 <RotateCcw size={14} />
-                <span>সকল ফিল্টার রিসেট করুন</span>
+                <span>{lang === 'en' ? 'Reset All Filters' : 'সকল ফিল্টার রিসেট করুন'}</span>
               </button>
             </div>
           )}
@@ -397,7 +427,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
                 className="p-2 rounded-[8px] border border-[#e5e5e5] bg-white text-[#0a0a0a] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                aria-label="পূর্ববর্তী পৃষ্ঠা"
+                aria-label={lang === 'en' ? 'Previous page' : 'পূর্ববর্তী পৃষ্ঠা'}
               >
                 <ChevronLeft size={16} />
               </button>
@@ -415,7 +445,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                         : 'bg-white text-gray-700 border border-[#e5e5e5] hover:bg-gray-50'
                     }`}
                   >
-                    {toBengaliNumber(pageNum)}
+                    {toLocalizedNumber(pageNum)}
                   </button>
                 );
               })}
@@ -425,7 +455,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
                 className="p-2 rounded-[8px] border border-[#e5e5e5] bg-white text-[#0a0a0a] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                aria-label="পরবর্তী পৃষ্ঠা"
+                aria-label={lang === 'en' ? 'Next page' : 'পরবর্তী পৃষ্ঠা'}
               >
                 <ChevronRight size={16} />
               </button>
@@ -440,7 +470,9 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
           <div className="w-full max-w-xs bg-white h-full p-6 overflow-y-auto flex flex-col justify-between animate-in slide-in-from-right duration-200">
             <div>
               <div className="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
-                <h3 className="font-bold text-base text-[#0a0a0a]">ফিল্টার অপশন</h3>
+                <h3 className="font-bold text-base text-[#0a0a0a]">
+                  {lang === 'en' ? 'Filter Options' : 'ফিল্টার অপশন'}
+                </h3>
                 <button
                   type="button"
                   onClick={() => setMobileFilterOpen(false)}
@@ -452,16 +484,18 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
 
               {/* Class selection */}
               <div className="mb-4">
-                <span className="block text-xs font-bold text-gray-700 mb-2">শ্রেণি</span>
+                <span className="block text-xs font-bold text-gray-700 mb-2">
+                  {lang === 'en' ? 'Class' : 'শ্রেণি'}
+                </span>
                 <select
                   value={selectedClass}
                   onChange={e => setSelectedClass(e.target.value)}
                   className="w-full text-xs p-2.5 bg-gray-50 border rounded-md"
                 >
-                  <option value="all">সকল শ্রেণি</option>
+                  <option value="all">{lang === 'en' ? 'All Classes' : 'সকল শ্রেণি'}</option>
                   {classesList.map(c => (
                     <option key={c.slug} value={c.slug}>
-                      {c.name}
+                      {lang === 'en' ? classNames[c.slug]?.en || c.name : c.name}
                     </option>
                   ))}
                 </select>
@@ -469,15 +503,18 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
 
               {/* Category */}
               <div className="mb-4">
-                <span className="block text-xs font-bold text-gray-700 mb-2">ক্যাটাগরি</span>
+                <span className="block text-xs font-bold text-gray-700 mb-2">
+                  {lang === 'en' ? 'Category' : 'ক্যাটাগরি'}
+                </span>
                 <select
                   value={selectedCategory}
                   onChange={e => setSelectedCategory(e.target.value)}
                   className="w-full text-xs p-2.5 bg-gray-50 border rounded-md"
                 >
+                  <option value="all">{lang === 'en' ? 'All Categories' : 'সকল ক্যাটাগরি'}</option>
                   {categoriesList.map(c => (
                     <option key={c.id} value={c.id}>
-                      {c.name}
+                      {lang === 'en' ? categoryNames[c.id]?.en || c.name : c.name}
                     </option>
                   ))}
                 </select>
@@ -485,7 +522,9 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
 
               {/* Subject */}
               <div className="mb-4">
-                <span className="block text-xs font-bold text-gray-700 mb-2">বিষয়</span>
+                <span className="block text-xs font-bold text-gray-700 mb-2">
+                  {lang === 'en' ? 'Subject' : 'বিষয়'}
+                </span>
                 <select
                   value={selectedSubject}
                   onChange={e => setSelectedSubject(e.target.value)}
@@ -493,7 +532,7 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                 >
                   {subjectsList.map(s => (
                     <option key={s} value={s}>
-                      {s}
+                      {lang === 'en' ? subjectNames[s]?.en || s : s}
                     </option>
                   ))}
                 </select>
@@ -506,14 +545,14 @@ export const ProductListingPage: React.FC<ListingPageProps> = ({
                 onClick={handleResetFilters}
                 className="flex-1 py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-[8px]"
               >
-                রিসেট
+                {lang === 'en' ? 'Reset' : 'রিসেট'}
               </button>
               <button
                 type="button"
                 onClick={() => setMobileFilterOpen(false)}
                 className="flex-1 py-2.5 bg-[#e2136e] text-white text-xs font-bold rounded-[8px]"
               >
-                প্রয়োগ করুন
+                {lang === 'en' ? 'Apply Filters' : 'প্রয়োগ করুন'}
               </button>
             </div>
           </div>
