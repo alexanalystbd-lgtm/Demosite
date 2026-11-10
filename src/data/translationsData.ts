@@ -509,6 +509,7 @@ export const bilingualTestimonials = [
     avatarText: 'TA',
     badgeBn: 'HSC ব্যাচ',
     badgeEn: 'HSC Batch',
+    rating: 5,
     commentBn: 'HSC পদার্থবিজ্ঞান ১ম ও ২য় পত্রের কনসেপ্ট বুকটি অসাধারণ! বিশেষ করে ক্যালকুলেটর শর্টকাট এবং সার্কিট রিডাকশনের টেকনিকগুলো আমার কলেজের টেস্ট পরীক্ষায় প্রচুর সময় বাঁচিয়েছে।',
     commentEn: 'The HSC Physics 1st & 2nd Paper Concept Book is outstanding! The calculator tricks and circuit shortcuts saved immense time during my college test exams.'
   },
@@ -523,6 +524,7 @@ export const bilingualTestimonials = [
     avatarText: 'FY',
     badgeBn: 'সন্তুষ্ট অভিভাবক',
     badgeEn: 'Satisfied Parent',
+    rating: 5,
     commentBn: 'আমার মেয়ের এসএসসি গণিত নিয়ে অনেক ভীতি ছিল। এখানকার সাধারণ গণিত হ্যান্ডনোট আর অল-ইন-ওয়ান প্ল্যানার প্রিন্ট করে দেওয়ার পর থেকে ওর পড়ার রুটিনে দারুণ শৃঙ্খলা এসেছে।',
     commentEn: 'My daughter was anxious about SSC Math. Printing the handwritten formula sheets and study planners brought remarkable discipline to her study schedule.'
   },
@@ -537,6 +539,7 @@ export const bilingualTestimonials = [
     avatarText: 'MH',
     badgeBn: 'এসএসসি ব্যাচ',
     badgeEn: 'SSC Batch',
+    rating: 5,
     commentBn: 'মডেল টেস্ট বান্ডেলের সমাধানগুলো এতো স্পষ্ট ও নির্ভুল যে নিজে নিজেই ভুলগুলো শুধরে নেওয়া যায়। ফ্রি স্যাম্পল দেখে অর্ডার করেছিলাম, হতাশ হতে হয়নি!',
     commentEn: 'The model test answer explanations are so clear and accurate that I can identify and rectify errors on my own. Excellent quality.'
   },
@@ -551,6 +554,7 @@ export const bilingualTestimonials = [
     avatarText: 'ST',
     badgeBn: 'HSC রসায়ন',
     badgeEn: 'HSC Chemistry',
+    rating: 5,
     commentBn: 'জৈব রসায়নের রূপান্তর চার্টটা আমার পড়ার টেবিলে প্রিন্ট করে সাঁটিয়ে রেখেছি। আগে বিক্রিয়া মনে থাকত না, এখন চোখের সামনে এক নজরে সব স্পষ্ট।',
     commentEn: 'I printed the organic chemistry reaction roadmap chart beside my desk. All multi-step synthesis reactions are now crystal clear at a glance.'
   }
@@ -566,16 +570,22 @@ export function localizeProduct(product: any, lang: 'bn' | 'en') {
 
   const title = lang === 'en' ? (trans?.titleEn || product.title) : (trans?.titleBn || product.title);
   const shortDescription = lang === 'en' ? (trans?.shortDescEn || product.shortDescription) : (trans?.shortDescBn || product.shortDescription);
+  const description = lang === 'en' ? (trans?.descEn || product.description) : (trans?.descBn || product.description);
   const subject = lang === 'en' ? (trans?.subjectEn || sub?.en || product.subject) : (trans?.subjectBn || sub?.bn || product.subject);
   const badge = lang === 'en' ? (trans?.badgeEn || (product.badge === '১০০% ফ্রি' ? '100% Free' : product.badge)) : (trans?.badgeBn || product.badge);
   const classLabel = lang === 'en' ? (cls?.shortEn || product.classLabel) : (cls?.shortBn || product.classLabel);
   const categoryLabel = lang === 'en' ? (cat?.en || product.categoryLabel) : (cat?.bn || product.categoryLabel);
   const format = lang === 'en' ? 'Printable Vector PDF (Unlocked)' : (product.format || 'প্রিন্ট ফ্রেন্ডলি PDF (আনলকড)');
+  const features: string[] = lang === 'en' ? (trans?.featuresEn || product.features || []) : (trans?.featuresBn || product.features || []);
+  const tableOfContents: string[] = lang === 'en' ? (trans?.tableOfContentsEn || product.tableOfContents || []) : (trans?.tableOfContentsBn || product.tableOfContents || []);
 
   return {
     ...product,
     title,
     shortDescription,
+    description,
+    features,
+    tableOfContents,
     subject,
     badge,
     classLabel,

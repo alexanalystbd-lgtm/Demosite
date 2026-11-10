@@ -388,7 +388,7 @@ export const ProductDetailPage: React.FC = () => {
                 : 'border-transparent text-[#626262] hover:text-[#0a0a0a]'
             }`}
           >
-            {lang === 'en' ? `Reviews (${toLocalizedNumber(reviewsList.length)})` : `রিভিউ (${toBengaliNumber(reviewsList.length)})`}
+            {lang === 'en' ? `Reviews (${toLocalizedNumber(reviewsList.length)})` : `রিভিউ (${toLocalizedNumber(reviewsList.length)})`}
           </button>
         </div>
 
@@ -409,7 +409,7 @@ export const ProductDetailPage: React.FC = () => {
                   {lang === 'en' ? 'Key Features & Highlights' : 'প্রধান বৈশিষ্ট্যসমূহ'}
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {localized.features.map((feat, i) => (
+                  {localized.features.map((feat: string, i: number) => (
                     <div key={i} className="flex items-start gap-2 bg-slate-50 p-3 rounded-[8px] border border-slate-200">
                       <CheckCircle2 size={16} className="text-emerald-600 shrink-0 mt-0.5" />
                       <span className="text-xs font-semibold text-slate-800">{feat}</span>
@@ -427,7 +427,7 @@ export const ProductDetailPage: React.FC = () => {
                 {lang === 'en' ? 'Table of Contents & Chapters' : 'সূচিপত্র ও অধ্যায়সমূহ'}
               </h3>
               <div className="divide-y divide-gray-100 border border-gray-100 rounded-[10px]">
-                {localized.tableOfContents.map((ch, idx) => (
+                {localized.tableOfContents.map((ch: string, idx: number) => (
                   <div key={idx} className="p-3.5 flex items-center justify-between text-xs sm:text-sm">
                     <div className="flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-gray-100 text-gray-700 flex items-center justify-center font-bold text-xs">

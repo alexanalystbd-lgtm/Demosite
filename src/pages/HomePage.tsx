@@ -742,7 +742,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {chooseUsList[lang].map((item, idx) => (
+            {chooseUsList.map((item, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-[12px] p-5 border border-slate-200 hover:border-[#e2136e] hover:shadow-sm transition-all flex flex-col justify-between"
@@ -752,10 +752,10 @@ export const HomePage: React.FC = () => {
                     {toLocalizedNumber(idx + 1)}
                   </div>
                   <h3 className="font-bold text-base text-slate-900 mb-1.5 leading-snug">
-                    {item.title}
+                    {lang === 'en' ? item.titleEn : item.titleBn}
                   </h3>
                   <p className="text-xs text-slate-500 leading-relaxed">
-                    {item.desc}
+                    {lang === 'en' ? item.descEn : item.descBn}
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
@@ -844,49 +844,49 @@ export const HomePage: React.FC = () => {
 
         {/* 11. Two Promo Banners: Annual Exam Bundle (School) & HSC Bundle (College) */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-5" aria-label={lang === 'en' ? 'Promotional Bundles' : 'প্রমোশনাল বান্ডেল'}>
-          {promoBundles[lang].map((bundle) => (
+          {promoBundles.map((bundle, bIdx) => (
             <div
-              key={bundle.id}
-              className={`bg-white rounded-[12px] p-6 border border-slate-200 hover:border-[${bundle.id === 'promo-school' ? '#e2136e' : '#f9902e'}] transition-all shadow-xs flex flex-col justify-between`}
+              key={bIdx}
+              className={`bg-white rounded-[12px] p-6 border border-slate-200 hover:border-[${bIdx === 0 ? '#e2136e' : '#f9902e'}] transition-all shadow-xs flex flex-col justify-between`}
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
-                    bundle.id === 'promo-school'
+                    bIdx === 0
                       ? 'bg-pink-50 text-[#e2136e] border-pink-100'
                       : 'bg-orange-50 text-[#f9902e] border-orange-100'
                   }`}>
-                    {bundle.badge}
+                    {lang === 'en' ? bundle.badgeEn : bundle.badgeBn}
                   </span>
                   <span className="text-[11px] text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
-                    {bundle.discount}
+                    {lang === 'en' ? bundle.discountEn : bundle.discountBn}
                   </span>
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-1.5">
-                  {bundle.title}
+                  {lang === 'en' ? bundle.titleEn : bundle.titleBn}
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                  {bundle.desc}
+                  {lang === 'en' ? bundle.descEn : bundle.descBn}
                 </p>
               </div>
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <div>
                   <span className="text-lg font-black text-[#e2136e]">
-                    {lang === 'en' ? `BDT ${bundle.price}` : `৳ ${toLocalizedNumber(bundle.price)}`}
+                    {lang === 'en' ? bundle.priceEn : bundle.priceBn}
                   </span>
                   <span className="text-xs text-slate-400 line-through ml-2">
-                    {lang === 'en' ? `BDT ${bundle.originalPrice}` : `৳ ${toLocalizedNumber(bundle.originalPrice)}`}
+                    {lang === 'en' ? bundle.originalPriceEn : bundle.originalPriceBn}
                   </span>
                 </div>
                 <Link
-                  to={bundle.link}
+                  to={bundle.url}
                   className={`text-xs font-bold px-4 py-2 rounded-[8px] transition-all ${
-                    bundle.id === 'promo-school'
+                    bIdx === 0
                       ? 'bg-[#e2136e] hover:bg-[#c2105f] text-white'
                       : 'bg-[#f9902e] hover:bg-[#f88114] text-slate-900'
                   }`}
                 >
-                  {lang === 'en' ? 'Get Bundle' : 'বান্ডেল সংগ্রহ করুন'}
+                  {lang === 'en' ? bundle.btnTextEn : bundle.btnTextBn}
                 </Link>
               </div>
             </div>
@@ -908,7 +908,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            {bilingualFaqs[lang].map(faq => {
+            {bilingualFaqs.map(faq => {
               const isOpen = openFaqId === faq.id;
               return (
                 <div
@@ -921,7 +921,7 @@ export const HomePage: React.FC = () => {
                     className="w-full p-4 sm:p-5 text-left font-bold text-sm sm:text-base text-slate-900 flex items-center justify-between gap-3 hover:text-[#e2136e] transition-colors cursor-pointer"
                     aria-expanded={isOpen}
                   >
-                    <span>{faq.question}</span>
+                    <span>{lang === 'en' ? faq.qEn : faq.qBn}</span>
                     <span className="text-[#e2136e] shrink-0">
                       {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                     </span>
@@ -929,7 +929,7 @@ export const HomePage: React.FC = () => {
 
                   {isOpen && (
                     <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 animate-in fade-in duration-150">
-                      {faq.answer}
+                      {lang === 'en' ? faq.aEn : faq.aBn}
                     </div>
                   )}
                 </div>
@@ -959,7 +959,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {bilingualTestimonials[lang].map(item => (
+            {bilingualTestimonials.map(item => (
               <div
                 key={item.id}
                 className="bg-white rounded-[12px] p-5 border border-slate-200 shadow-xs flex flex-col justify-between"
@@ -967,17 +967,17 @@ export const HomePage: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex text-amber-400">
-                      {[...Array(item.rating)].map((_, i) => (
+                      {[...Array(item.rating || 5)].map((_, i) => (
                         <Star key={i} size={14} className="fill-current" />
                       ))}
                     </div>
                     <span className="text-[10px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
-                      {item.badge}
+                      {lang === 'en' ? item.badgeEn : item.badgeBn}
                     </span>
                   </div>
 
                   <p className="text-xs text-slate-700 leading-relaxed mb-4 italic">
-                    "{item.comment}"
+                    "{lang === 'en' ? item.commentEn : item.commentBn}"
                   </p>
                 </div>
 
@@ -986,9 +986,9 @@ export const HomePage: React.FC = () => {
                     {item.avatarText}
                   </div>
                   <div>
-                    <h4 className="font-bold text-xs text-slate-900">{item.name}</h4>
-                    <p className="text-[11px] text-slate-500">{item.role}</p>
-                    <p className="text-[10px] text-slate-400 line-clamp-1">{item.institution}</p>
+                    <h4 className="font-bold text-xs text-slate-900">{lang === 'en' ? item.nameEn : item.nameBn}</h4>
+                    <p className="text-[11px] text-slate-500">{lang === 'en' ? item.roleEn : item.roleBn}</p>
+                    <p className="text-[10px] text-slate-400 line-clamp-1">{lang === 'en' ? item.institutionEn : item.institutionBn}</p>
                   </div>
                 </div>
               </div>

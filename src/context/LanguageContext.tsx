@@ -166,23 +166,50 @@ export const translations: Translations = {
   digitalWorkbookDesc: { bn: 'হাতে-কলমে প্র্যাকটিস শিট, অঙ্ক ও ডায়াগ্রামের খালি টেমপ্লেট এবং সেলফ-অ্যাসেসমেন্ট।', en: 'Hands-on practice sheets, math & diagram blank templates & self-assessments.' },
   seeWorkbook: { bn: 'ওয়ার্কবুক দেখুন', en: 'View Workbooks' },
 
-  // Smart E-book Feature Section
+  // Smart E-book Feature Section & Categories
+  freeSample: { bn: 'ফ্রি স্যাম্পল', en: 'Free Sample' },
+  catPlanner: { bn: 'স্টাডি প্ল্যানার', en: 'Study Planner' },
+  catNotes: { bn: 'সাবজেক্ট নোটস', en: 'Subject Notes' },
+  catExamGuide: { bn: 'এক্সাম প্রেপারেশন গাইড', en: 'Exam Prep Guide' },
+  catWorkbook: { bn: 'ডিজিটাল ওয়ার্কবুক', en: 'Digital Workbook' },
+  helplineTitle: { bn: '২৪/৭ হেল্পলাইন', en: '24/7 Helpline' },
+  helplineSub: { bn: 'যেকোনো প্রয়োজনে হোয়াটসঅ্যাপ ও ফোন সাপোর্ট সর্বদা সচল', en: 'WhatsApp & hotline assistance always available' },
+
   smartReadingBadge: { bn: 'স্মার্ট রিডিং অভিজ্ঞতা', en: 'Smart Reading Experience' },
   smartReadingTitle: { bn: 'যেকোনো ডিভাইসে পড়ুন, প্রিন্ট করুন বা হাইলাইট করুন', en: 'Read, Print, or Highlight on Any Device' },
   smartReadingDesc: {
     bn: 'মোবাইলের স্ক্রিনে চোখ আটকে না রেখে অথবা ভারি বইয়ের বোঝা না টেনে, ট্যাবলেটে বা প্রিন্ট করে খুব সহজেই স্বাচ্ছন্দ্যে পড়াশোনা করুন।',
     en: 'Study comfortably on tablet, mobile or desktop without carrying heavy physical books or straining your eyes.'
   },
+  ebookSectionBadge: { bn: 'স্মার্ট ই-বুক সুবিধা', en: 'Smart E-Book Benefits' },
+  ebookSectionTitle: { bn: 'যেকোনো ডিভাইসে পড়ুন, প্রিন্ট করুন বা হাইলাইট করুন', en: 'Read, Print, or Highlight on Any Device' },
+  ebookSectionDesc: {
+    bn: 'মোবাইলের স্ক্রিনে চোখ আটকে না রেখে অথবা ভারি বইয়ের বোঝা না টেনে, ট্যাবলেটে বা প্রিন্ট করে খুব সহজেই স্বাচ্ছন্দ্যে পড়াশোনা করুন।',
+    en: 'Study comfortably on your tablet, laptop or phone without carrying heavy textbooks, or print easily with crystal clear formatting.'
+  },
+  readingFriendlyDesign: { bn: 'স্মার্ট ই-বুক ফিচার', en: 'Smart E-Book Features' },
+  readingFriendlyDesc: { bn: 'ক্লিকযোগ্য সূচিপত্র ও ডার্ক-মোড ফ্রেন্ডলি হাই-রেজোলিউশন ফন্ট', en: 'Interactive clickable TOC and crisp high-resolution vector typography' },
+  feature1Title: { bn: '১০০% আনলকড PDF', en: '100% Unlocked PDF' },
+  feature1Desc: { bn: 'যেকোনো সফটওয়্যারে হাইলাইট ও নোট নিন', en: 'Highlight and annotate in any PDF reader' },
+  feature2Title: { bn: 'ক্লিকযোগ্য সূচিপত্র', en: 'Clickable TOC' },
+  feature2Desc: { bn: 'এক ক্লিকে কাঙ্ক্ষিত অধ্যায়ে পৌঁছান', en: 'Jump straight to any chapter in one tap' },
+  feature3Title: { bn: 'ভেক্টর গ্রাফিক্স', en: 'Vector Graphics' },
+  feature3Desc: { bn: 'যত জুমই করুন, ঝকঝকে স্পষ্ট থাকবে', en: 'Crystal clear formulas and diagrams at 500% zoom' },
+  viewAllEbooks: { bn: 'সকল ই-বুক দেখুন', en: 'View All E-Books' },
+  freeSampleTrial: { bn: 'ফ্রি ট্রায়াল নিন', en: 'Try Free Sample' },
   ebookFeature1: { bn: '১০০% আনলকড ও পাসওয়ার্ডমুক্ত প্রিন্ট ফ্রেন্ডলি PDF ফাইল', en: '100% unlocked & password-free printable PDF files' },
   ebookFeature2: { bn: 'ক্লিকযোগ্য আধুনিক সূচিপত্র — এক ক্লিকে যেকোনো অধ্যায়ে জাম্প', en: 'Clickable interactive table of contents — jump to any chapter instantly' },
   ebookFeature3: { bn: 'হাই কোয়ালিটি ভেক্টর গ্রাফিক্স — জুম করলেও একটুও ফাটবে না', en: 'Ultra crisp vector typography & diagrams — zero blur even at 500% zoom' },
-  exploreAllEbooks: { bn: 'সকল ই-বুক এক্সপ্লোর করুন', en: 'Explore All E-Books' },
   instantDemoBoxTitle: { bn: 'তাত্ক্ষণিক ফ্রি স্যাম্পল দেখে নিন', en: 'Preview Free Demo Sample' },
   instantDemoBoxDesc: { bn: 'যেকোনো বই কেনার আগে কোয়ালিটি যাচাই করতে আমাদের ফ্রি স্যাম্পল সংগ্রহ করুন।', en: 'Review sample chapters and formula sheets before buying any study resource.' },
 
   // Why Choose Us Section
-  whyChooseUsBadge: { bn: 'কেন আমরা সেরা', en: 'Why Choose Us' },
-  whyChooseUsTitle: { bn: 'কেন আমাদের বেছে নেবেন?', en: 'Why Choose Our Digital Platform?' },
+  whyBestBadge: { bn: 'কেন আমরা সেরা', en: 'Why Choose Us' },
+  whyChooseUsTitle: { bn: 'আমাদের ডিজিটাল প্ল্যাটফর্ম কেন বেছে নেবেন?', en: 'Why Choose Our Digital Platform?' },
+  whyChooseUsSub: {
+    bn: 'সারা দেশের শীর্ষ শিক্ষা প্রতিষ্ঠানের শিক্ষকদের গভীর গবেষণায় প্রস্তুতকৃত মেটেরিয়ালস',
+    en: 'Materials meticulously prepared by educators from top institutions nationwide'
+  },
   whyChooseUsDesc: {
     bn: 'শিক্ষার্থীদের সময় ও পড়ালেখার মান বৃদ্ধি নিশ্চিত করতে আমাদের প্রতিটি বই অনন্য',
     en: 'Engineered specifically to save study hours and guarantee academic excellence'
@@ -191,6 +218,7 @@ export const translations: Translations = {
 
   // FAQ & Community
   faqBadge: { bn: 'প্রশ্ন ও উত্তর', en: 'Questions & Answers' },
+  faqTitle: { bn: 'সচরাচর জিজ্ঞাসিত প্রশ্ন (FAQ)', en: 'Frequently Asked Questions (FAQ)' },
   faqHeading: { bn: 'সচরাচর জিজ্ঞাসিত প্রশ্ন (FAQ)', en: 'Frequently Asked Questions (FAQ)' },
   faqSub: { bn: 'ডিজিটাল প্রোডাক্ট কেনা ও ডাউনলোড সম্পর্কিত সাধারণ প্রশ্নসমূহ', en: 'Common queries regarding digital product purchase & downloads' },
   seeFullFaqLink: { bn: 'আরও কোনো প্রশ্ন আছে? সম্পূর্ণ FAQ পেজ দেখুন →', en: 'Have more questions? View our Full FAQ Page →' },
